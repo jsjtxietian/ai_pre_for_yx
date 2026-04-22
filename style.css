@@ -1,0 +1,7 @@
+/* Fix: Goto dialog autocomplete showing when not in use (slidevjs/slidev#2519) */
+#slidev-goto-dialog .autocomplete-list {
+  display: none;
+}
+#slidev-goto-dialog:not(.-top-20) .autocomplete-list {
+  display: block;
+}

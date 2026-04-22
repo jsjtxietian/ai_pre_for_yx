@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install *)",
+      "Bash(pnpm approve-builds *)",
+      "Bash(pnpm run *)",
+      "Bash(start *)",
+      "WebFetch(domain:localhost)",
+      "Bash(curl -s http://localhost:3030/)",
+      "Bash(gh issue *)",
+      "WebFetch(domain:github.com)",
+      "WebSearch"
+    ]
+  }
+}
