@@ -1,5 +1,5 @@
 ---
-theme: seriph
+theme: penguin
 title: AI 与游戏开发
 titleTemplate: '%s'
 author: ''
@@ -12,7 +12,12 @@ fonts:
   mono: Fira Code
   provider: google
 themeConfig:
-  primary: '#0ea5e9'
+  primary: '#3e5166'
+  logoHeader: ''
+  twitter: ''
+  twitterUrl: ''
+  eventLogo: ''
+  eventUrl: ''
 drawings:
   enabled: false
 ---
@@ -26,7 +31,7 @@ drawings:
 </div>
 
 ---
-layout: section
+layout: new-section
 ---
 
 # Part 1: LLM
@@ -50,7 +55,7 @@ AI 能独立完成的任务时长 —— **Log 坐标**下是一条直线
 
 <div class="col-span-2 space-y-2 text-xs">
 
-<div v-click class="p-2 bg-sky-50 rounded-lg border border-sky-200">
+<div v-click class="p-2 bg-teal-50 rounded-lg border border-teal-200">
 <strong>图表直译</strong><br/>
 "不同 LLM 能以 <strong>50% 成功率</strong> 完成的软件任务时长"
 </div>
@@ -89,7 +94,7 @@ Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
 
 <div class="col-span-2 space-y-2 text-xs">
 
-<div v-click class="p-2 bg-sky-50 rounded-lg border border-sky-200">
+<div v-click class="p-2 bg-teal-50 rounded-lg border border-teal-200">
 <strong>早期几乎贴地</strong><br/>
 GPT-2/3 那些"几秒级"任务，在线性尺度下与 0 几乎无区别
 </div>
@@ -119,25 +124,25 @@ Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
 
 <v-clicks>
 
-<div class="p-4 mb-4 bg-sky-50 rounded-lg border-l-4 border-sky-400 text-lg">
+<div class="p-4 mb-4 bg-teal-50 rounded-lg border-l-4 border-teal-400 text-lg">
 
 **1.** Token 到底是什么？
 
 </div>
 
-<div class="p-4 mb-4 bg-sky-50 rounded-lg border-l-4 border-sky-400 text-lg">
+<div class="p-4 mb-4 bg-teal-50 rounded-lg border-l-4 border-teal-400 text-lg">
 
 **2.** Transformer 的基本结构和原理是什么？
 
 </div>
 
-<div class="p-4 mb-4 bg-sky-50 rounded-lg border-l-4 border-sky-400 text-lg">
+<div class="p-4 mb-4 bg-teal-50 rounded-lg border-l-4 border-teal-400 text-lg">
 
 **3.** 为什么大模型本质上是基于统计学的，而且总是带有随机性？
 
 </div>
 
-<div class="p-4 bg-sky-50 rounded-lg border-l-4 border-sky-400 text-lg">
+<div class="p-4 bg-teal-50 rounded-lg border-l-4 border-teal-400 text-lg">
 
 **4.** 为什么大模型会有 Context（上下文）的长度限制？
 
@@ -154,7 +159,7 @@ Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
 **G**enerative **P**re-trained **T**ransformer
 
 <div class="grid grid-cols-3 gap-6 mt-8">
-<div v-click class="p-4 bg-sky-50 rounded-lg border border-sky-200">
+<div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200">
 
 ### Generative
 
@@ -189,23 +194,13 @@ Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
 
 文本进去，文本出来 —— 中间发生了什么？
 
-<div class="mt-8 flex items-center justify-center gap-2 text-sm flex-wrap">
-  <div v-click class="px-3 py-2 bg-sky-100 rounded border border-sky-300 text-center">输入文本<br/><span class="text-xs opacity-70">"今天天气"</span></div>
-  <div v-after class="opacity-40">→</div>
-  <div v-click class="px-3 py-2 bg-sky-100 rounded border border-sky-300 text-center">Tokenizer<br/><span class="text-xs opacity-70">切分成 Token</span></div>
-  <div v-after class="opacity-40">→</div>
-  <div v-click class="px-3 py-2 bg-amber-100 rounded border border-amber-300 text-center">Embedding<br/><span class="text-xs opacity-70">映射为向量</span></div>
-  <div v-after class="opacity-40">→</div>
-  <div v-click class="px-3 py-2 bg-pink-100 rounded border border-pink-300 text-center">Transformer<br/><span class="text-xs opacity-70">神经网络（黑盒）</span></div>
-  <div v-after class="opacity-40">→</div>
-  <div v-click class="px-3 py-2 bg-amber-100 rounded border border-amber-300 text-center">概率分布<br/><span class="text-xs opacity-70">每个词的可能性</span></div>
-  <div v-after class="opacity-40">→</div>
-  <div v-click class="px-3 py-2 bg-green-100 rounded border border-green-300 text-center">采样器<br/><span class="text-xs opacity-70">选出一个 Token</span></div>
+<div class="mt-8">
+  <InferencePipeline />
 </div>
 
 <div v-click class="mt-6 text-center">
   <div class="inline-block px-4 py-2 bg-gray-100 rounded-lg border border-gray-300 text-sm">
-    ↩ 新 Token 加入输入序列，回到开头继续生成 —— <span v-mark="{ at: 8, type: 'highlight', color: '#0ea5e9' }">自回归（Autoregressive）</span>
+    <carbon-return class="inline text-gray-500" /> 新 Token 加入输入序列，回到开头继续生成 —— <span v-mark="{ at: 8, type: 'highlight', color: '#14b8a6' }">自回归（Autoregressive）</span>
   </div>
 </div>
 
@@ -224,56 +219,9 @@ Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
   </div>
 </div>
 
-<div v-click class="p-4 bg-sky-50 rounded-lg border border-sky-200">
+<div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200">
   <div class="text-xs opacity-60 mb-2 font-mono">Output（每次只预测一个 Token）</div>
-  <div class="font-mono text-base flex flex-wrap gap-x-1 gap-y-2 items-center leading-loose">
-    <span class="token-pop" style="animation-delay:.00s">良</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:.20s">诺</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:.40s">·</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:.60s">布</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:.80s">恩</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:1.00s">地</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:1.20s">亚</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:1.40s">上</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:1.60s">校</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:1.80s">将</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:2.00s">会</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:2.20s">回</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:2.40s">想</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:2.60s">起</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:2.80s">，</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:3.00s">他</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:3.20s">父</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:3.40s">亲</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:3.60s">带</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:3.80s">他</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:4.00s">去</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:4.20s">见</span>
-    <span class="text-gray-300 text-xs">→</span>
-    <span class="token-pop" style="animation-delay:4.40s">识</span>
-    <span class="token-pop text-gray-400" style="animation-delay:4.60s">…</span>
-  </div>
+  <TokenTypewriter :tokens="['良','诺','·','布','恩','地','亚','上','校','将','会','回','想','起','，','他','父','亲','带','他','去','见','识']" />
 </div>
 
 <div v-click class="text-xs opacity-60 text-center italic">《百年孤独》开篇 —— 模型"回想起"了整本书</div>
@@ -287,9 +235,9 @@ Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
 "Strawberry 里有几个 r？" —— 以前的 AI 经常答错
 
 <div v-click class="mt-6 flex items-center justify-center gap-1">
-  <div class="font-mono text-lg px-4 py-2 bg-sky-100 rounded-l-lg border border-sky-300">str</div>
+  <div class="font-mono text-lg px-4 py-2 bg-teal-100 rounded-l-lg border border-teal-300">str</div>
   <div class="font-mono text-lg px-4 py-2 bg-amber-100 border-y border-amber-300">aw</div>
-  <div class="font-mono text-lg px-4 py-2 bg-pink-100 rounded-r-lg border border-pink-300">berry</div>
+  <div class="font-mono text-lg px-4 py-2 bg-violet-100 rounded-r-lg border border-violet-300">berry</div>
 </div>
 <div v-after class="text-center text-xs opacity-50 mt-1">它看到的不是 s-t-r-a-w-b-e-r-r-y 这 10 个字母 —— 而是 3 个 Token</div>
 
@@ -318,7 +266,7 @@ Transformer 内部最重要的机制：**Self-Attention（自注意力）**
 
 <div v-click class="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
   <div class="flex items-center justify-center gap-1 text-base font-mono">
-    <span class="px-2 py-1 bg-sky-200 rounded border border-sky-400 font-bold">小明</span>
+    <span class="px-2 py-1 bg-teal-200 rounded border border-teal-400 font-bold">小明</span>
     <span class="px-2 py-1 opacity-50">去了</span>
     <span class="px-2 py-1 opacity-50">公园</span>
     <span class="px-2 py-1 opacity-50">，</span>
@@ -327,7 +275,7 @@ Transformer 内部最重要的机制：**Self-Attention（自注意力）**
     <span class="px-2 py-1 opacity-50">又</span>
     <span class="px-2 py-1 opacity-50">回家了</span>
   </div>
-  <div class="text-center mt-2 text-xs text-sky-600">← "他" 能跨越多个 Token 回看到"小明" —— 这就是全局视野</div>
+  <div class="text-center mt-2 text-xs text-teal-600">← "他" 能跨越多个 Token 回看到"小明" —— 这就是全局视野</div>
 </div>
 
 <div class="grid grid-cols-2 gap-4 mt-3">
@@ -380,23 +328,29 @@ Next-Token Prediction —— 基于概率分布的自回归过程
 <div>
 
 <div v-click>
-  <div class="text-xs mb-1 opacity-60">Temperature ≈ 0 （死板，几乎总选最高概率）</div>
-  <div class="flex items-end gap-1 h-14 mb-3">
-    <div class="flex-1 bg-sky-500 rounded-t flex items-end justify-center text-white text-[10px] pb-0.5" style="height: 95%">真好</div>
-    <div class="flex-1 bg-sky-300 rounded-t" style="height: 8%"></div>
-    <div class="flex-1 bg-sky-200 rounded-t" style="height: 3%"></div>
-    <div class="flex-1 bg-sky-100 rounded-t" style="height: 1%"></div>
-  </div>
+  <TemperatureBars
+    temp="≈ 0"
+    label="死板，几乎总选最高概率"
+    :bars="[
+      { color: 'bg-teal-500', text: 'text-white', height: 95, label: '真好' },
+      { color: 'bg-teal-300', height: 8 },
+      { color: 'bg-teal-200', height: 3 },
+      { color: 'bg-teal-100', height: 1 },
+    ]"
+  />
 </div>
 
 <div v-click>
-  <div class="text-xs mb-1 opacity-60">Temperature ≈ 1 （创造力，或"幻觉"）</div>
-  <div class="flex items-end gap-1 h-14">
-    <div class="flex-1 bg-sky-400 rounded-t flex items-end justify-center text-white text-[10px] pb-0.5" style="height: 45%">真好</div>
-    <div class="flex-1 bg-amber-400 rounded-t flex items-end justify-center text-white text-[10px] pb-0.5" style="height: 30%">不错</div>
-    <div class="flex-1 bg-pink-400 rounded-t flex items-end justify-center text-white text-[10px] pb-0.5" style="height: 18%">很热</div>
-    <div class="flex-1 bg-gray-300 rounded-t flex items-end justify-center text-[10px] pb-0.5" style="height: 7%">...</div>
-  </div>
+  <TemperatureBars
+    temp="≈ 1"
+    label="创造力，或幻觉"
+    :bars="[
+      { color: 'bg-teal-400', text: 'text-white', height: 45, label: '真好' },
+      { color: 'bg-amber-400', text: 'text-white', height: 30, label: '不错' },
+      { color: 'bg-violet-400', text: 'text-white', height: 18, label: '很热' },
+      { color: 'bg-gray-300', height: 7, label: '...' },
+    ]"
+  />
 </div>
 
 </div>
@@ -416,7 +370,7 @@ Next-Token Prediction —— 基于概率分布的自回归过程
 
 <div class="grid grid-cols-3 gap-3 mt-4 text-sm">
 
-<div v-click class="p-3 bg-sky-50 rounded-lg border-l-4 border-sky-500">
+<div v-click class="p-3 bg-teal-50 rounded-lg border-l-4 border-teal-500">
   <div class="text-xs opacity-60 font-mono">机制层面</div>
 
 ### 采样与温度
@@ -438,7 +392,7 @@ $(a+b)+c \neq a+(b+c)$
 
 </div>
 
-<div v-click class="p-3 bg-pink-50 rounded-lg border-l-4 border-pink-500">
+<div v-click class="p-3 bg-violet-50 rounded-lg border-l-4 border-violet-500">
   <div class="text-xs opacity-60 font-mono">工程层面</div>
 
 ### 环境干扰
@@ -502,7 +456,7 @@ $(a+b)+c \neq a+(b+c)$
 
 </div>
 
-<div v-click class="mt-4 p-3 bg-sky-50 rounded-lg border border-sky-200 text-sm">
+<div v-click class="mt-4 p-3 bg-teal-50 rounded-lg border border-teal-200 text-sm">
 
 **怎么缓解？** 给它提供 **Context**（让它去看网页、查文档）—— 这就是 RAG 的核心思想。冷门 API（如 UE 某个模块）尤其要小心。
 
@@ -512,7 +466,7 @@ $(a+b)+c \neq a+(b+c)$
 
 # Context Window
 
-<div class="mt-4 p-4 bg-sky-50 rounded-lg border border-sky-200">
+<div class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200">
 
 "今天天气很好，我准备出 ___"
 
@@ -533,7 +487,7 @@ $(a+b)+c \neq a+(b+c)$
   <div class="text-xs mb-1 opacity-60">一次对话中 Context 的组成</div>
   <div class="w-full h-8 rounded-lg flex overflow-hidden text-xs text-white font-medium">
     <div class="bg-purple-500 flex items-center justify-center" style="width: 15%">系统提示</div>
-    <div class="bg-sky-500 flex items-center justify-center" style="width: 30%">历史对话</div>
+    <div class="bg-teal-500 flex items-center justify-center" style="width: 30%">历史对话</div>
     <div class="bg-amber-500 flex items-center justify-center" style="width: 15%">你的问题</div>
     <div class="bg-gray-300 flex items-center justify-center text-gray-600" style="width: 40%">剩余可用空间</div>
   </div>
@@ -542,86 +496,6 @@ $(a+b)+c \neq a+(b+c)$
 <div v-click class="mt-3 p-3 bg-amber-50 rounded-lg border border-amber-200 text-sm">
 
 **Context Rot**：输入 Token 越多，模型表现反而可能下降 —— 注意力会被废话稀释。所以 <span v-mark="{ at: 6, type: 'underline', color: '#f59e0b' }">精简指令、清晰分隔</span> 是在手动引导模型的注意力资源。
-
-</div>
-
----
-
-# 后训练：SFT
-
-Pre-training 之后，模型还要继续"上学"
-
-<div class="mt-2">
-
-```mermaid {scale: 0.75}
-graph LR
-    A["Pre-training<br/>海量文本预训练"] --> B["Post-training<br/>后训练"]
-    B --> C["SFT"]
-    B --> D["RL / RLHF"]
-    B --> E["DPO / ORPO 等"]
-    style A fill:#e0f2fe,stroke:#0ea5e9
-    style B fill:#fef3c7,stroke:#f59e0b
-    style C fill:#dcfce7,stroke:#22c55e
-    style D fill:#dcfce7,stroke:#22c55e
-    style E fill:#dcfce7,stroke:#22c55e
-```
-
-</div>
-
-<div v-click class="mt-3 p-3 bg-amber-50 rounded-lg border-l-4 border-amber-400 text-sm">
-
-**只预训练的模型是什么样？** 问它 "法国的首都叫什么？"<br/>
-→ 它不回答"巴黎"，而是继续 **续写你的提问**：<br/>
-→ "德国的首都叫什么？英国的首都叫什么？"
-
-</div>
-
-<v-clicks>
-
-- **SFT（Supervised Fine-Tuning）**：用 **人工标注的问答对** 继续训练，让它学会"按指令回答"
-- 让模型：遵循指令、输出特定格式、适应领域（法律/医疗/客服）
-- 常见流程里，SFT 是 RLHF 的前置步骤
-
-</v-clicks>
-
----
-
-# 后训练：RL
-
-强化学习 —— 通过与环境交互、接收奖惩来学习决策
-
-<div v-click class="mt-6 flex items-center justify-center gap-3 text-sm">
-  <div class="px-4 py-3 bg-sky-100 rounded-lg border border-sky-300 text-center w-32">
-    <div class="font-bold">Action</div>
-    <div class="text-xs opacity-70 mt-1">模型生成输出</div>
-  </div>
-  <div class="text-gray-400 text-lg">→</div>
-  <div class="px-4 py-3 bg-emerald-100 rounded-lg border border-emerald-300 text-center w-32">
-    <div class="font-bold">Environment</div>
-    <div class="text-xs opacity-70 mt-1">在任务中执行</div>
-  </div>
-  <div class="text-gray-400 text-lg">→</div>
-  <div class="px-4 py-3 bg-amber-100 rounded-lg border border-amber-300 text-center w-32">
-    <div class="font-bold">Reward</div>
-    <div class="text-xs opacity-70 mt-1">评价好坏</div>
-  </div>
-  <div class="text-gray-400 text-lg">→</div>
-  <div class="px-4 py-3 bg-pink-100 rounded-lg border border-pink-300 text-center w-32">
-    <div class="font-bold">Update</div>
-    <div class="text-xs opacity-70 mt-1">调整参数</div>
-  </div>
-</div>
-<div v-after class="text-center text-gray-400 text-sm mt-1">↩ 循环往复</div>
-
-<div v-click class="mt-6">
-
-**RL 的目标**：<span v-mark="{ at: 3, type: 'highlight', color: '#10b981' }">提高"好结果"出现的概率</span>，<span v-mark="{ at: 4, type: 'highlight', color: '#ec4899' }">降低"坏结果"出现的概率</span>
-
-</div>
-
-<div v-click class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 text-sm italic">
-
-RL 在 **可验证的技术问题** 上进步最快 —— 数学题对不对、代码能不能跑，这些天然有明确的奖励信号。RLHF（RL from Human Feedback）则用人类偏好作为"奖励"。
 
 </div>
 
@@ -672,54 +546,16 @@ RL 在 **可验证的技术问题** 上进步最快 —— 数学题对不对、
 
 ---
 
-# CoT：思维链
-
-Chain of Thought —— AI "自言自语" 才能想得更清楚
-
-<div v-click class="mt-6 grid grid-cols-2 gap-4 text-sm">
-
-<div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
-
-### 直接回答
-
-> 问：一个班里有 23 个男生，女生比男生少 5 个，总共多少人？
-
-> 答：**41 个**
-
-<div class="text-xs opacity-50 mt-2">容易算错（概率直接推结果）</div>
-
-</div>
-
-<div class="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-
-### 带思维链
-
-> 让我想想：男生 23 个，女生少 5 个就是 18 个，一共 23+18=**41 人**
-
-<div class="text-xs opacity-50 mt-2">多走几步，正确率显著提高</div>
-
-</div>
-
-</div>
-
-<div v-click class="mt-6 p-4 bg-sky-50 rounded-lg border-l-4 border-sky-400 text-sm">
-
-**本质**：CoT 是让模型把输出 **对齐到预训练时的连续知识分布**。它是 **模型说给自己听的**，不是说给用户听的 —— 所以现在 o1、DeepSeek-R1 这类"推理模型"会先输出一大段思考过程。
-
-</div>
-
----
-
 # 多模态
 
 图像、音频也可以是 Token —— **能变成 Token 的，都能用 Transformer 处理**
 
 <div v-click class="mt-4 flex items-center justify-center gap-2 text-sm">
-  <div class="px-3 py-2 bg-sky-100 rounded border border-sky-300 text-center">文本 Token<br/><span class="text-xs opacity-70">"你好"</span></div>
+  <div class="px-3 py-2 bg-teal-100 rounded border border-teal-300 text-center">文本 Token<br/><span class="text-xs opacity-70">"你好"</span></div>
   <div class="opacity-30">+</div>
   <div class="px-3 py-2 bg-amber-100 rounded border border-amber-300 text-center">图像 Token<br/><span class="text-xs opacity-70">Patch 切块</span></div>
   <div class="opacity-30">+</div>
-  <div class="px-3 py-2 bg-pink-100 rounded border border-pink-300 text-center">音频 Token<br/><span class="text-xs opacity-70">频谱片段</span></div>
+  <div class="px-3 py-2 bg-violet-100 rounded border border-violet-300 text-center">音频 Token<br/><span class="text-xs opacity-70">频谱片段</span></div>
   <div class="opacity-30">→</div>
   <div class="px-3 py-2 bg-emerald-100 rounded border border-emerald-300 text-center font-medium">Transformer<br/><span class="text-xs opacity-70">统一处理</span></div>
 </div>
@@ -731,7 +567,7 @@ Chain of Thought —— AI "自言自语" 才能想得更清楚
 
 </v-clicks>
 
-<div v-click class="mt-4 p-4 bg-sky-50 rounded-lg border border-sky-200">
+<div v-click class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200">
 
 ### 原生多模态
 
@@ -741,12 +577,54 @@ Chain of Thought —— AI "自言自语" 才能想得更清楚
 </div>
 
 ---
-layout: section
+layout: new-section
 ---
 
 # Part 2: Agent 时代
 
 交互模式的进化（在模型能力的基础上）
+
+---
+
+# 从前、当下、将来
+
+<div class="mt-10 flex gap-4">
+  <TimelineStage label="Phase I" title="Tab 补全" v-click>
+    AI 第一次摸到代码
+  </TimelineStage>
+  <TimelineStage label="Phase II" title="Chatbot" v-click>
+    同步提示-响应回路
+  </TimelineStage>
+  <TimelineStage label="Phase III" title="AI Editor" v-click>
+    仓内上下文协作
+  </TimelineStage>
+  <TimelineStage label="Phase IV" title="Code Agent" active v-click>
+    长任务 / 少指令 / 自主
+  </TimelineStage>
+</div>
+
+<div class="mt-12 relative h-16">
+  <div v-click="[1,2]" class="absolute inset-0 flex items-center justify-center gap-5 transition-opacity duration-300">
+    <span class="text-sm opacity-50">2018 – 2022</span>
+    <span class="px-4 py-1.5 bg-gray-100 rounded-md text-sm">TabNine</span>
+    <span class="px-4 py-1.5 bg-gray-100 rounded-md text-sm">Copilot</span>
+  </div>
+  <div v-click="[2,3]" class="absolute inset-0 flex items-center justify-center gap-5 transition-opacity duration-300">
+    <span class="text-sm opacity-50">2022 – 2024</span>
+    <span class="px-4 py-1.5 bg-gray-100 rounded-md text-sm">ChatGPT</span>
+    <span class="px-4 py-1.5 bg-gray-100 rounded-md text-sm">Claude</span>
+  </div>
+  <div v-click="[3,4]" class="absolute inset-0 flex items-center justify-center gap-5 transition-opacity duration-300">
+    <span class="text-sm opacity-50">2024 – 2025</span>
+    <span class="px-4 py-1.5 bg-gray-100 rounded-md text-sm">Cursor</span>
+    <span class="px-4 py-1.5 bg-gray-100 rounded-md text-sm">Windsurf</span>
+  </div>
+  <div v-click="4" class="absolute inset-0 flex items-center justify-center gap-5 transition-opacity duration-300">
+    <span class="text-sm opacity-50">2025 –</span>
+    <span class="px-4 py-1.5 bg-teal-50 rounded-md text-sm text-teal-600 font-medium">Claude Code</span>
+    <span class="px-4 py-1.5 bg-teal-50 rounded-md text-sm text-teal-600 font-medium">Codex</span>
+  </div>
+</div>
 
 ---
 
@@ -773,7 +651,7 @@ layout: section
 
 # Agent 是什么
 
-<div class="mt-4 p-4 bg-sky-50 rounded-lg border border-sky-200 text-lg font-medium text-center">
+<div class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200 text-lg font-medium text-center">
 
 An LLM agent runs tools in a loop to achieve a goal.
 
@@ -819,8 +697,8 @@ An LLM agent runs tools in a loop to achieve a goal.
 <div class="mt-2">
   <div class="grid grid-cols-3 text-center text-xs font-medium">
     <div><span class="px-3 py-1 bg-purple-100 rounded-md">用户</span></div>
-    <div><span class="px-3 py-1 bg-sky-100 rounded-md">Agent（本地程序 + 工具）</span></div>
-    <div><span class="px-3 py-1 bg-pink-100 rounded-md">LLM（云端模型）</span></div>
+    <div><span class="px-3 py-1 bg-teal-100 rounded-md">Agent（本地程序 + 工具）</span></div>
+    <div><span class="px-3 py-1 bg-violet-100 rounded-md">LLM（云端模型）</span></div>
   </div>
 </div>
 
@@ -835,55 +713,55 @@ An LLM agent runs tools in a loop to achieve a goal.
 
   <div v-click class="grid grid-cols-3 py-1">
     <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-    <div class="flex items-center"><span class="text-sky-500 mr-1">▸</span>"帮我读取 report.txt 并写摘要"</div>
+    <div class="flex items-center"><span class="text-teal-500 mr-1">▸</span>"帮我读取 report.txt 并写摘要"</div>
     <div></div>
   </div>
 
   <div v-click class="grid grid-cols-3 py-1">
     <div></div>
     <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-    <div class="flex items-center"><span class="text-sky-500 mr-1">▸</span>[系统提示 + 可用工具列表 + 用户请求]</div>
+    <div class="flex items-center"><span class="text-teal-500 mr-1">▸</span>[系统提示 + 可用工具列表 + 用户请求]</div>
   </div>
 
   <div v-click class="grid grid-cols-3 py-1">
     <div></div>
-    <div class="flex items-center"><span class="text-pink-500 mr-1">◂</span>调用 <code class="text-[10px]">read_file("report.txt")</code></div>
+    <div class="flex items-center"><span class="text-violet-500 mr-1">◂</span>调用 <code class="text-[10px]">read_file("report.txt")</code></div>
     <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
   </div>
 
   <div v-click class="grid grid-cols-3 py-1">
     <div></div>
-    <div class="flex items-center justify-center"><span class="px-3 py-0.5 bg-sky-50 rounded border border-sky-200 text-sky-600">⚙ Agent 执行工具：读取文件内容</span></div>
-    <div></div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div></div>
-    <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-    <div class="flex items-center"><span class="text-sky-500 mr-1">▸</span>[返回文件内容]</div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div></div>
-    <div class="flex items-center"><span class="text-pink-500 mr-1">◂</span>调用 <code class="text-[10px]">write_file("summary.txt", "...")</code></div>
-    <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div></div>
-    <div class="flex items-center justify-center"><span class="px-3 py-0.5 bg-sky-50 rounded border border-sky-200 text-sky-600">⚙ Agent 执行工具：写入摘要文件</span></div>
+    <div class="flex items-center justify-center"><span class="px-3 py-0.5 bg-teal-50 rounded border border-teal-200 text-teal-600">⚙ Agent 执行工具：读取文件内容</span></div>
     <div></div>
   </div>
 
   <div v-click class="grid grid-cols-3 py-1">
     <div></div>
     <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-    <div class="flex items-center"><span class="text-sky-500 mr-1">▸</span>[写入成功]</div>
+    <div class="flex items-center"><span class="text-teal-500 mr-1">▸</span>[返回文件内容]</div>
+  </div>
+
+  <div v-click class="grid grid-cols-3 py-1">
+    <div></div>
+    <div class="flex items-center"><span class="text-violet-500 mr-1">◂</span>调用 <code class="text-[10px]">write_file("summary.txt", "...")</code></div>
+    <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
+  </div>
+
+  <div v-click class="grid grid-cols-3 py-1">
+    <div></div>
+    <div class="flex items-center justify-center"><span class="px-3 py-0.5 bg-teal-50 rounded border border-teal-200 text-teal-600">⚙ Agent 执行工具：写入摘要文件</span></div>
+    <div></div>
+  </div>
+
+  <div v-click class="grid grid-cols-3 py-1">
+    <div></div>
+    <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
+    <div class="flex items-center"><span class="text-teal-500 mr-1">▸</span>[写入成功]</div>
   </div>
 
   <div v-click class="grid grid-cols-3 py-1">
     <div class="flex items-center"><span class="text-purple-500 mr-1">◂</span></div>
-    <div class="flex items-center"><span class="text-purple-400">◂</span><span class="text-gray-400 text-[10px] mx-1">────</span><span class="text-pink-400">◂</span><span class="text-gray-400 text-[10px] ml-1">────</span></div>
+    <div class="flex items-center"><span class="text-purple-400">◂</span><span class="text-gray-400 text-[10px] mx-1">────</span><span class="text-violet-400">◂</span><span class="text-gray-400 text-[10px] ml-1">────</span></div>
     <div class="flex items-center">"已完成，摘要写入 summary.txt"</div>
   </div>
 
@@ -956,21 +834,21 @@ Model Context Protocol — 让 AI 调用外部工具的标准协议
 </v-clicks>
 
 <div v-click class="mt-4 grid grid-cols-3 gap-3 text-sm">
-<div class="p-3 bg-sky-50 rounded-lg border border-sky-200">
+<div class="p-3 bg-teal-50 rounded-lg border border-teal-200">
 
 **GitHub MCP**
 
 操作仓库、Issue、PR
 
 </div>
-<div class="p-3 bg-sky-50 rounded-lg border border-sky-200">
+<div class="p-3 bg-teal-50 rounded-lg border border-teal-200">
 
 **Puppeteer MCP**
 
 浏览器自动化
 
 </div>
-<div class="p-3 bg-sky-50 rounded-lg border border-sky-200">
+<div class="p-3 bg-teal-50 rounded-lg border border-teal-200">
 
 **PostgreSQL MCP**
 
@@ -1005,7 +883,7 @@ MCP 的代价：每个工具定义都占 Context
 
 </v-clicks>
 
-<div v-click class="mt-4 p-3 bg-sky-50 rounded-lg border border-sky-200 text-sm">
+<div v-click class="mt-4 p-3 bg-teal-50 rounded-lg border border-teal-200 text-sm">
 
 **适用场景**：当任务可以用标准 CLI 完成时，不需要 MCP —— 简单、省 Token、模型更熟悉
 
@@ -1047,7 +925,7 @@ CLI 的下一步 —— 从"给工具"到"教技能"
 </div>
 </div>
 
-<div v-click class="mt-4 p-3 bg-sky-50 rounded-lg border border-sky-200 text-sm">
+<div v-click class="mt-4 p-3 bg-teal-50 rounded-lg border border-teal-200 text-sm">
 
 **例子**：Claude Code 的 Skill —— 不是一次性把所有文档塞给模型，而是先给一份概要目录，模型需要某个功能的细节时再去读对应的参考文件
 
@@ -1080,24 +958,24 @@ OpenClaw — 构建生产级 Agent 需要的核心组件
 **Permission Controls** — 权限管控
 
 </div>
-<div v-click class="p-2 bg-sky-50 rounded border border-sky-200">
+<div v-click class="p-2 bg-teal-50 rounded border border-teal-200">
 
 **The Gateway** — 网关路由
 
 </div>
-<div v-click class="p-2 bg-sky-50 rounded border border-sky-200">
+<div v-click class="p-2 bg-teal-50 rounded border border-teal-200">
 
 **Context Compaction** — 上下文压缩
 
 <span class="text-xs opacity-70">塞得越多，每条信息被正确利用的概率越低 —— 本质是提高信噪比</span>
 
 </div>
-<div v-click class="p-2 bg-sky-50 rounded border border-sky-200">
+<div v-click class="p-2 bg-teal-50 rounded border border-teal-200">
 
 **Long-Term Memory** — 长期记忆
 
 </div>
-<div v-click class="p-2 bg-sky-50 rounded border border-sky-200">
+<div v-click class="p-2 bg-teal-50 rounded border border-teal-200">
 
 **Command Queue** — 命令队列
 
@@ -1115,6 +993,14 @@ OpenClaw — 构建生产级 Agent 需要的核心组件
 </div>
 
 ---
+clicks: 1
+---
+
+# 约束：有限的 Context vs 膨胀的任务
+
+<ContextConstraint :step="$clicks" />
+
+---
 
 # Build for Agents：Context 管理
 
@@ -1123,7 +1009,7 @@ OpenClaw — 构建生产级 Agent 需要的核心组件
 <v-clicks>
 
 - AI 读文档比人快，调用 CLI 也比人熟练 —— 喂给它的形式要 **文本化、结构化**
-- 所有的隐性信息需要 <span v-mark="{ at: 3, type: 'underline', color: '#0ea5e9' }">显性化</span> —— 对 Agent 来说，看不到的等于不存在
+- 所有的隐性信息需要 <span v-mark="{ at: 3, type: 'underline', color: '#14b8a6' }">显性化</span> —— 对 Agent 来说，看不到的等于不存在
 
 </v-clicks>
 
@@ -1133,7 +1019,7 @@ OpenClaw — 构建生产级 Agent 需要的核心组件
 
 </div>
 
-<div v-click class="mt-3 p-4 bg-sky-50 rounded-lg border-l-4 border-sky-400 text-sm">
+<div v-click class="mt-3 p-4 bg-teal-50 rounded-lg border-l-4 border-teal-400 text-sm">
 
 **Progressive Disclosure**：用一个短小的入口文件（如 `AGENTS.md`，约 100 行）作为地图，指向更深层的知识。Agent 从稳定的小入口起步，被教会在哪里找下一步 —— 而不是一开始就被淹没。
 
@@ -1156,8 +1042,8 @@ Agent 不只需要模型 —— 它需要一整套 **脚手架（Harness）**
 <div v-click class="mt-3">
   <div class="text-xs mb-1 opacity-60 font-medium">一个完整的 Harness 包含什么？</div>
   <div class="flex flex-wrap gap-2 text-xs">
-    <span v-click class="px-2 py-1 bg-sky-100 rounded border border-sky-200">System Prompts / CLAUDE.md / AGENTS.md</span>
-    <span v-click class="px-2 py-1 bg-sky-100 rounded border border-sky-200">Tools / Skills / MCP servers</span>
+    <span v-click class="px-2 py-1 bg-teal-100 rounded border border-teal-200">System Prompts / CLAUDE.md / AGENTS.md</span>
+    <span v-click class="px-2 py-1 bg-teal-100 rounded border border-teal-200">Tools / Skills / MCP servers</span>
     <span v-click class="px-2 py-1 bg-amber-100 rounded border border-amber-200">Sandbox / 文件系统 / 浏览器</span>
     <span v-click class="px-2 py-1 bg-amber-100 rounded border border-amber-200">编排逻辑（子 Agent、模型路由）</span>
     <span v-click class="px-2 py-1 bg-emerald-100 rounded border border-emerald-200">Hooks（压缩、续写、lint）</span>
@@ -1170,7 +1056,7 @@ Agent 不只需要模型 —— 它需要一整套 **脚手架（Harness）**
 ### MHC 框架：Model + Harness + Context
 
 <div class="grid grid-cols-3 gap-3 mt-3 text-sm text-center">
-  <div class="p-2 bg-sky-50 rounded border border-sky-200"><strong>Model</strong><br/>会越来越强</div>
+  <div class="p-2 bg-teal-50 rounded border border-teal-200"><strong>Model</strong><br/>会越来越强</div>
   <div class="p-2 bg-amber-50 rounded border border-amber-200"><strong>Harness</strong><br/>始终需要工具/脚手架</div>
   <div class="p-2 bg-emerald-50 rounded border border-emerald-200"><strong>Context</strong><br/>你的记忆比以往更重要</div>
 </div>
@@ -1184,8 +1070,8 @@ Agent 不只需要模型 —— 它需要一整套 **脚手架（Harness）**
 什么样的任务适合交给 Agent？
 
 <div class="mt-4 grid grid-cols-3 gap-4">
-<div v-click class="p-4 bg-sky-50 rounded-lg border border-sky-200 text-center">
-  <div class="text-3xl mb-2">↻</div>
+<div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200 text-center">
+  <carbon-renew class="text-3xl text-teal-600 mb-2 mx-auto" />
 
 **Feedback Loop**
 
@@ -1193,7 +1079,7 @@ Agent 不只需要模型 —— 它需要一整套 **脚手架（Harness）**
 
 </div>
 <div v-click class="p-4 bg-amber-50 rounded-lg border border-amber-200 text-center">
-  <div class="text-3xl mb-2">⬚</div>
+  <carbon-cube class="text-3xl text-amber-600 mb-2 mx-auto" />
 
 **Sandbox**
 
@@ -1201,7 +1087,7 @@ Agent 不只需要模型 —— 它需要一整套 **脚手架（Harness）**
 
 </div>
 <div v-click class="p-4 bg-emerald-50 rounded-lg border border-emerald-200 text-center">
-  <div class="text-3xl mb-2">✓</div>
+  <carbon-checkmark-outline class="text-3xl text-emerald-600 mb-2 mx-auto" />
 
 **易于 Verify**
 
@@ -1218,12 +1104,12 @@ Agent 不只需要模型 —— 它需要一整套 **脚手架（Harness）**
 
 <div v-click class="mt-2 text-center text-sm">
 
-**核心原则**：让 Agent 能 <span v-mark="{ at: 6, type: 'underline', color: '#0ea5e9' }">自己验证自己的输出</span>
+**核心原则**：让 Agent 能 <span v-mark="{ at: 6, type: 'underline', color: '#14b8a6' }">自己验证自己的输出</span>
 
 </div>
 
 ---
-layout: section
+layout: new-section
 ---
 
 # Part 3: 游戏
@@ -1238,7 +1124,7 @@ AI 与游戏开发
 
 <div class="mt-4 grid grid-cols-3 gap-3">
 
-<div v-click class="p-4 bg-sky-50 rounded-lg border border-sky-200">
+<div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200">
 
 ### AI 辅助制作
 
@@ -1306,7 +1192,7 @@ AI 与游戏开发
 
 </div>
 
-<div v-click class="p-4 bg-sky-50 rounded-lg border border-sky-200">
+<div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200">
 
 ### Game Engines
 
@@ -1429,19 +1315,19 @@ AI 可以在现有工作流中发挥价值
 
 <div class="mt-6 space-y-3">
   <div v-click class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-    <div class="w-5 h-5 rounded border-2 border-sky-400 flex-shrink-0 flex items-center justify-center text-sky-500 text-xs">?</div>
+    <div class="w-5 h-5 rounded border-2 border-teal-400 flex-shrink-0 flex items-center justify-center text-teal-500 text-xs">?</div>
     <div>自动测试的 API 是不是全？</div>
   </div>
   <div v-click class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-    <div class="w-5 h-5 rounded border-2 border-sky-400 flex-shrink-0 flex items-center justify-center text-sky-500 text-xs">?</div>
+    <div class="w-5 h-5 rounded border-2 border-teal-400 flex-shrink-0 flex items-center justify-center text-teal-500 text-xs">?</div>
     <div>知识库是不是完整？</div>
   </div>
   <div v-click class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-    <div class="w-5 h-5 rounded border-2 border-sky-400 flex-shrink-0 flex items-center justify-center text-sky-500 text-xs">?</div>
+    <div class="w-5 h-5 rounded border-2 border-teal-400 flex-shrink-0 flex items-center justify-center text-teal-500 text-xs">?</div>
     <div>流程是不是都清晰？</div>
   </div>
   <div v-click class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-    <div class="w-5 h-5 rounded border-2 border-sky-400 flex-shrink-0 flex items-center justify-center text-sky-500 text-xs">?</div>
+    <div class="w-5 h-5 rounded border-2 border-teal-400 flex-shrink-0 flex items-center justify-center text-teal-500 text-xs">?</div>
     <div>逻辑和画面是不是做了良好的分离？</div>
   </div>
 </div>
@@ -1453,7 +1339,7 @@ AI 放大的是你已有的基建质量 —— <span v-mark="{ at: 6, type: 'und
 </div>
 
 ---
-layout: section
+layout: new-section
 ---
 
 # Part 4: 思考
@@ -1527,7 +1413,7 @@ layout: two-cols
 
 </v-clicks>
 
-<div v-click class="mt-3 p-3 bg-sky-50 rounded-lg border border-sky-200 text-xs">
+<div v-click class="mt-3 p-3 bg-teal-50 rounded-lg border border-teal-200 text-xs">
 
 **The true value is in doing what nobody did before.** Imagination right now is your most important attribute.
 
@@ -1537,10 +1423,19 @@ layout: two-cols
 
 ---
 
+---
+layout: center
+clicks: 3
+---
+
+<AgentSplitView :step="$clicks" />
+
+---
+
 # 明确的趋势
 
 <div class="grid grid-cols-2 gap-4 mt-6">
-<div v-click class="p-4 bg-sky-50 rounded-lg border border-sky-200">
+<div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200">
 
 ### 工具的民主化
 
@@ -1580,7 +1475,7 @@ SaaS 股价暴跌的原因之一
 
 <v-clicks>
 
-<div class="p-4 mb-4 bg-sky-50 rounded-lg border border-sky-200">
+<div class="p-4 mb-4 bg-teal-50 rounded-lg border border-teal-200">
 
 **1. 不 FOMO，自己体验**
 
@@ -1662,7 +1557,7 @@ graph LR
     B -->|"是"| C["用 AI 自动化"]
     B -->|"脚本就够了"| D["写个脚本"]
     B -->|"需要人判断"| E["人来做"]
-    style A fill:#e0f2fe,stroke:#0ea5e9
+    style A fill:#e0f2fe,stroke:#14b8a6
     style B fill:#fef3c7,stroke:#f59e0b
     style C fill:#dcfce7,stroke:#22c55e
     style D fill:#dcfce7,stroke:#22c55e
@@ -1688,11 +1583,11 @@ class: text-center
 
 AI 在飞速进步，但游戏是做给人玩的
 
-我们要做的是：<span v-mark="{ at: 1, type: 'underline', color: '#0ea5e9' }">理解 AI 的能力边界</span>，<span v-mark="{ at: 2, type: 'underline', color: '#10b981' }">用好它</span>，<span v-mark="{ at: 3, type: 'underline', color: '#f59e0b' }">然后专注于人的价值</span>
+我们要做的是：<span v-mark="{ at: 1, type: 'underline', color: '#14b8a6' }">理解 AI 的能力边界</span>，<span v-mark="{ at: 2, type: 'underline', color: '#10b981' }">用好它</span>，<span v-mark="{ at: 3, type: 'underline', color: '#f59e0b' }">然后专注于人的价值</span>
 
 </div>
 
-<div v-click class="mt-8 p-3 bg-sky-50 rounded-lg border border-sky-200 text-sm max-w-xl mx-auto">
+<div v-click class="mt-8 p-3 bg-teal-50 rounded-lg border border-teal-200 text-sm max-w-xl mx-auto">
 
 有问题尽管问 —— 反正都可以问 AI，AI 比我强多了<br/>
 <span class="text-xs opacity-60">能问 AI 关于 AI 的问题，是今天分享的目的</span>

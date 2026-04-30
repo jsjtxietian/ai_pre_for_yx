@@ -7,10 +7,15 @@
     "export": "slidev export"
   },
   "dependencies": {
+    "@iconify-json/carbon": "^1.2.8",
+    "@iconify-json/logos": "^1.2.11",
     "@slidev/cli": "^51.0.0",
-    "@slidev/theme-seriph": "latest"
+    "@slidev/theme-seriph": "latest",
+    "slidev-theme-penguin": "^2.3.1"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
