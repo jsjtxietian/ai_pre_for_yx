@@ -16,6 +16,9 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
-    ]
+    ],
+    "patchedDependencies": {
+      "@slidev/cli@51.8.2": "patches/@slidev__cli@51.8.2.patch"
+    }
   }
 }

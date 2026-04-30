@@ -1,0 +1,13 @@
+diff --git a/dist/shared-BC4uxnur.js b/dist/shared-BC4uxnur.js
+index 4af3b3d9b97eaf6fe63208a54c7c609b22aa6bc8..868d95fea99f859ee024fdcf1b41e86e92d52907 100644
+--- a/dist/shared-BC4uxnur.js
++++ b/dist/shared-BC4uxnur.js
+@@ -1158,7 +1158,7 @@ const templateShiki = {
+ 		const themesInit = await Promise.all(themes.map(async (theme) => typeof theme === "string" ? `import('${await resolveImportUrl(`shiki/themes/${theme}.mjs`)}')` : JSON.stringify(theme)));
+ 		const langNames = langs.flatMap((lang) => typeof lang === "string" ? lang : lang.name);
+ 		const lines = [];
+-		lines.push(`import { createHighlighterCore } from "${await resolveImportUrl("shiki/core")}"`, `import { createJavaScriptRegexEngine } from "${await resolveImportUrl("@shikijs/engine-javascript")}"`, `export { shikiToMonaco } from "${await resolveImportUrl("@shikijs/monaco")}"`, `export const languages = ${JSON.stringify(langNames)}`, `export const themes = ${JSON.stringify(themeOptionsNames.themes || themeOptionsNames.theme)}`, "export const shiki = createHighlighterCore({", `  themes: [${themesInit.join(",")}],`, `  langs: [${langsInit.join(",")}],`, `  engine: createJavaScriptRegexEngine(),`, "})", "let highlight", "export async function getHighlighter() {", "  if (highlight) return highlight", "  const highlighter = await shiki", "  highlight = (code, lang, options) => highlighter.codeToHtml(code, {", "    lang,", `    theme: ${JSON.stringify(themeOptionsNames.theme)},`, `    themes: ${JSON.stringify(themeOptionsNames.themes)},`, "    defaultColor: false,", "    ...options,", "  })", "  return highlight", "}");
++		lines.push(`import { createHighlighterCore } from "${await resolveImportUrl("shiki/core")}"`, `import { createJavaScriptRegexEngine } from "${await resolveImportUrl("@shikijs/engine-javascript")}"`, `export { shikiToMonaco } from "${await resolveImportUrl("@shikijs/monaco")}"`, `export const languages = ${JSON.stringify(langNames)}`, `export const themes = ${JSON.stringify(themeOptionsNames.themes || themeOptionsNames.theme)}`, "export const shiki = createHighlighterCore({", `  themes: [${themesInit.join(",")}],`, `  langs: [${langsInit.join(",")}],`, `  engine: createJavaScriptRegexEngine(),`, "})", "let highlight", "export async function getHighlighter() {", "  if (highlight) return highlight", "  const highlighter = await shiki", "  highlight = (code, lang, options) => highlighter.codeToHtml(code, {", "    lang,", ...(themeOptionsNames.theme !== void 0 ? [`    theme: ${JSON.stringify(themeOptionsNames.theme)},`] : []), ...(themeOptionsNames.themes !== void 0 ? [`    themes: ${JSON.stringify(themeOptionsNames.themes)},`] : []), "    defaultColor: false,", "    ...options,", "  })", "  return highlight", "}");
+ 		return lines.join("\n");
+ 	}
+ };

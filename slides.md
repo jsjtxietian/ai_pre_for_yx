@@ -19,7 +19,7 @@ themeConfig:
   eventLogo: ''
   eventUrl: ''
 drawings:
-  enabled: false
+  enabled: true
 layout: center
 class: text-center
 ---
