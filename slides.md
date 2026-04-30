@@ -35,6 +35,84 @@ layout: section
 
 ---
 
+# 模型能力在飞速进化
+
+AI 能独立完成的任务时长 —— **Log 坐标**下是一条直线
+
+<div class="mt-2 grid grid-cols-5 gap-4 items-start">
+
+<div class="col-span-3">
+  <img src="/images/show.png" class="rounded border border-gray-200 shadow-sm w-full" />
+  <div class="text-xs opacity-50 mt-1 text-center">
+    横轴：模型发布时间 · 纵轴：任务时长（<strong>对数刻度</strong>）
+  </div>
+</div>
+
+<div class="col-span-2 space-y-2 text-xs">
+
+<div v-click class="p-2 bg-sky-50 rounded-lg border border-sky-200">
+<strong>图表直译</strong><br/>
+"不同 LLM 能以 <strong>50% 成功率</strong> 完成的软件任务时长"
+</div>
+
+<div v-click class="p-2 bg-amber-50 rounded-lg border border-amber-200">
+<strong>Log 轴上的直线 = 指数增长</strong><br/>
+每格是前一格的 <strong>10 倍</strong>，数据点大致落在一条直线上
+</div>
+
+<div v-click class="p-2 bg-emerald-50 rounded-lg border border-emerald-200">
+<strong>METR 的发现</strong><br/>
+Task Horizon 大约每 <strong>~7 个月翻一倍</strong> —— 持续了多年的稳定节奏
+</div>
+
+<div class="opacity-50 mt-1">
+Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
+</div>
+
+</div>
+</div>
+
+---
+
+# 换成 Linear 坐标看看
+
+同样的数据 —— 早期任务被压得几乎看不见，近两年是 **Hockey-Stick**
+
+<div class="mt-2 grid grid-cols-5 gap-4 items-start">
+
+<div class="col-span-3">
+  <img src="/images/show1.png" class="rounded border border-gray-200 shadow-sm w-full" />
+  <div class="text-xs opacity-50 mt-1 text-center">
+    横轴：模型发布时间 · 纵轴：任务时长（线性）
+  </div>
+</div>
+
+<div class="col-span-2 space-y-2 text-xs">
+
+<div v-click class="p-2 bg-sky-50 rounded-lg border border-sky-200">
+<strong>早期几乎贴地</strong><br/>
+GPT-2/3 那些"几秒级"任务，在线性尺度下与 0 几乎无区别
+</div>
+
+<div v-click class="p-2 bg-amber-50 rounded-lg border border-amber-200">
+<strong>近两年突然起飞</strong><br/>
+前沿模型已经能独立跑 <strong>数小时</strong> 的复杂工程任务
+</div>
+
+<div v-click class="p-2 bg-emerald-50 rounded-lg border border-emerald-200">
+<strong>外推的含义</strong><br/>
+如果指数趋势继续，几年后模型将能独立完成 <strong>数天</strong> 量级的任务
+</div>
+
+<div class="opacity-50 mt-1">
+Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
+</div>
+
+</div>
+</div>
+
+---
+
 # 希望大家理解
 
 <div class="mt-8">
@@ -127,8 +205,79 @@ layout: section
 
 <div v-click class="mt-6 text-center">
   <div class="inline-block px-4 py-2 bg-gray-100 rounded-lg border border-gray-300 text-sm">
-    ↩ 新 Token 加入输入序列，回到开头继续生成 —— <span v-mark.highlight.sky="8">自回归（Autoregressive）</span>
+    ↩ 新 Token 加入输入序列，回到开头继续生成 —— <span v-mark="{ at: 8, type: 'highlight', color: '#0ea5e9' }">自回归（Autoregressive）</span>
   </div>
+</div>
+
+---
+
+# 自回归：一个个 Token 蹦出来
+
+像打字机一样 —— 每次只预测下一个
+
+<div class="mt-6 space-y-3 text-sm">
+
+<div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+  <div class="text-xs opacity-60 mb-2 font-mono">Input（已有的 Context）</div>
+  <div class="font-mono text-base">
+    许多年之后，面对行刑队，奥雷<span class="text-xs opacity-50 italic ml-1">｜ 从这里继续生成</span>
+  </div>
+</div>
+
+<div v-click class="p-4 bg-sky-50 rounded-lg border border-sky-200">
+  <div class="text-xs opacity-60 mb-2 font-mono">Output（每次只预测一个 Token）</div>
+  <div class="font-mono text-base flex flex-wrap gap-x-1 gap-y-2 items-center leading-loose">
+    <span class="token-pop" style="animation-delay:.00s">良</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:.20s">诺</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:.40s">·</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:.60s">布</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:.80s">恩</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:1.00s">地</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:1.20s">亚</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:1.40s">上</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:1.60s">校</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:1.80s">将</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:2.00s">会</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:2.20s">回</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:2.40s">想</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:2.60s">起</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:2.80s">，</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:3.00s">他</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:3.20s">父</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:3.40s">亲</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:3.60s">带</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:3.80s">他</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:4.00s">去</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:4.20s">见</span>
+    <span class="text-gray-300 text-xs">→</span>
+    <span class="token-pop" style="animation-delay:4.40s">识</span>
+    <span class="token-pop text-gray-400" style="animation-delay:4.60s">…</span>
+  </div>
+</div>
+
+<div v-click class="text-xs opacity-60 text-center italic">《百年孤独》开篇 —— 模型"回想起"了整本书</div>
+
 </div>
 
 ---
@@ -186,7 +335,7 @@ Transformer 内部最重要的机制：**Self-Attention（自注意力）**
 
 <v-clicks>
 
-- 不预设"只有附近重要" —— <span v-mark.highlight.amber="5">任意两位置都可能相关</span>
+- 不预设"只有附近重要" —— <span v-mark="{ at: 5, type: 'highlight', color: '#f59e0b' }">任意两位置都可能相关</span>
 - 相关性由 **内容决定**，动态分配权重
 - 本质：**一个内容驱动的全局软检索系统**
 - 网络够深，自然涌现出各种能力
@@ -392,7 +541,7 @@ $(a+b)+c \neq a+(b+c)$
 
 <div v-click class="mt-3 p-3 bg-amber-50 rounded-lg border border-amber-200 text-sm">
 
-**Context Rot**：输入 Token 越多，模型表现反而可能下降 —— 注意力会被废话稀释。所以 <span v-mark.underline.amber="6">精简指令、清晰分隔</span> 是在手动引导模型的注意力资源。
+**Context Rot**：输入 Token 越多，模型表现反而可能下降 —— 注意力会被废话稀释。所以 <span v-mark="{ at: 6, type: 'underline', color: '#f59e0b' }">精简指令、清晰分隔</span> 是在手动引导模型的注意力资源。
 
 </div>
 
@@ -466,7 +615,7 @@ graph LR
 
 <div v-click class="mt-6">
 
-**RL 的目标**：<span v-mark.highlight.emerald="3">提高"好结果"出现的概率</span>，<span v-mark.highlight.pink="4">降低"坏结果"出现的概率</span>
+**RL 的目标**：<span v-mark="{ at: 3, type: 'highlight', color: '#10b981' }">提高"好结果"出现的概率</span>，<span v-mark="{ at: 4, type: 'highlight', color: '#ec4899' }">降低"坏结果"出现的概率</span>
 
 </div>
 
@@ -974,7 +1123,7 @@ OpenClaw — 构建生产级 Agent 需要的核心组件
 <v-clicks>
 
 - AI 读文档比人快，调用 CLI 也比人熟练 —— 喂给它的形式要 **文本化、结构化**
-- 所有的隐性信息需要 <span v-mark.underline.sky="3">显性化</span> —— 对 Agent 来说，看不到的等于不存在
+- 所有的隐性信息需要 <span v-mark="{ at: 3, type: 'underline', color: '#0ea5e9' }">显性化</span> —— 对 Agent 来说，看不到的等于不存在
 
 </v-clicks>
 
@@ -1069,7 +1218,7 @@ Agent 不只需要模型 —— 它需要一整套 **脚手架（Harness）**
 
 <div v-click class="mt-2 text-center text-sm">
 
-**核心原则**：让 Agent 能 <span v-mark.underline.sky="6">自己验证自己的输出</span>
+**核心原则**：让 Agent 能 <span v-mark="{ at: 6, type: 'underline', color: '#0ea5e9' }">自己验证自己的输出</span>
 
 </div>
 
@@ -1153,7 +1302,7 @@ AI 与游戏开发
 **劣势**
 
 - 对没学过的规则天然漠视
-- <span v-mark.underline.pink="2">无法生成 coherent、rule-governed 的玩法</span>
+- <span v-mark="{ at: 2, type: 'underline', color: '#ec4899' }">无法生成 coherent、rule-governed 的玩法</span>
 
 </div>
 
@@ -1299,7 +1448,7 @@ AI 可以在现有工作流中发挥价值
 
 <div v-click class="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200 text-center text-lg">
 
-AI 放大的是你已有的基建质量 —— <span v-mark.underline.emerald="6">基建越好，AI 的杠杆越大</span>
+AI 放大的是你已有的基建质量 —— <span v-mark="{ at: 6, type: 'underline', color: '#10b981' }">基建越好，AI 的杠杆越大</span>
 
 </div>
 
@@ -1490,7 +1639,7 @@ Attention is all **we** have
 
 ### "Just one more prompt" 陷阱
 
-<span v-mark.highlight.amber="4">三次法则</span>：如果三次 prompt 没有让 AI 做到 70% 可用，就自己写。没有例外。
+<span v-mark="{ at: 4, type: 'highlight', color: '#f59e0b' }">三次法则</span>：如果三次 prompt 没有让 AI 做到 70% 可用，就自己写。没有例外。
 
 </div>
 
@@ -1539,7 +1688,7 @@ class: text-center
 
 AI 在飞速进步，但游戏是做给人玩的
 
-我们要做的是：<span v-mark.underline.sky="1">理解 AI 的能力边界</span>，<span v-mark.underline.emerald="2">用好它</span>，<span v-mark.underline.amber="3">然后专注于人的价值</span>
+我们要做的是：<span v-mark="{ at: 1, type: 'underline', color: '#0ea5e9' }">理解 AI 的能力边界</span>，<span v-mark="{ at: 2, type: 'underline', color: '#10b981' }">用好它</span>，<span v-mark="{ at: 3, type: 'underline', color: '#f59e0b' }">然后专注于人的价值</span>
 
 </div>
 

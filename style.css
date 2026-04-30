@@ -5,3 +5,20 @@
 #slidev-goto-dialog:not(.-top-20) .autocomplete-list {
   display: block;
 }
+
+/* Typewriter-style token reveal for the autoregressive example */
+.token-pop {
+  display: inline-block;
+  opacity: 0;
+  animation: token-pop 0.4s ease-out forwards;
+}
+@keyframes token-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
