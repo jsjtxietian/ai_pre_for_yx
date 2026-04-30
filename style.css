@@ -10,7 +10,7 @@
 .token-pop {
   display: inline-block;
   opacity: 0;
-  animation: token-pop 0.4s ease-out forwards;
+  animation: token-pop 0.7s ease-out forwards;
 }
 @keyframes token-pop {
   from {
