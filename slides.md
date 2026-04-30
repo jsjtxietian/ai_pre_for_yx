@@ -234,27 +234,58 @@ Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
 
 "Strawberry 里有几个 r？" —— 以前的 AI 经常答错
 
-<div v-click class="mt-6 flex items-center justify-center gap-1">
-  <div class="font-mono text-lg px-4 py-2 bg-teal-100 rounded-l-lg border border-teal-300">str</div>
-  <div class="font-mono text-lg px-4 py-2 bg-amber-100 border-y border-amber-300">aw</div>
-  <div class="font-mono text-lg px-4 py-2 bg-violet-100 rounded-r-lg border border-violet-300">berry</div>
+<div class="grid grid-cols-2 gap-6 mt-6 items-center">
+
+<div v-click>
+  <div class="flex items-center justify-center gap-1">
+    <div class="font-mono text-2xl px-5 py-3 bg-teal-100 rounded-l-lg border border-teal-300">str</div>
+    <div class="font-mono text-2xl px-5 py-3 bg-amber-100 border-y border-amber-300">aw</div>
+    <div class="font-mono text-2xl px-5 py-3 bg-violet-100 rounded-r-lg border border-violet-300">berry</div>
+  </div>
+  <div class="text-center text-xs opacity-60 mt-3">模型看到的不是 s-t-r-a-w-b-e-r-r-y 这 10 个字母 —— 而是 <strong>3 个 Token</strong></div>
 </div>
-<div v-after class="text-center text-xs opacity-50 mt-1">它看到的不是 s-t-r-a-w-b-e-r-r-y 这 10 个字母 —— 而是 3 个 Token</div>
 
-<v-clicks>
+<div v-click>
+  <img src="/images/token.png" class="rounded border border-gray-200 shadow-sm w-full" />
+  <div class="text-[11px] opacity-60 mt-2 text-center">OpenAI Tokenizer：strawberry 被切成 3 段</div>
+</div>
 
-- LLM 不是按字符处理文本，而是先切分成 **Token**
-- 模型从未"看到"过单独的字母 —— 所以字符级计数它并不擅长
+</div>
 
-</v-clicks>
+<div v-click class="mt-6 text-center text-sm opacity-70">
+LLM 不是按字符处理文本 —— 字符级计数不是它的强项
+</div>
 
-<div v-click class="mt-4 p-4 bg-amber-50 rounded-lg border border-amber-200">
+---
 
-### Token → Vector
+# Token → Vector：模型眼中的句子
 
-所有 Token 进入模型前，都会被转成 **向量（Vector）** —— 一长串数字。
+更完整的例子 —— 一句话在模型眼里是什么样？
 
-之后所有计算都是基于这些数字的数学运算。想亲眼看 Tokenizer 怎么切：<code class="text-xs">platform.openai.com/tokenizer</code>
+<div class="grid grid-cols-2 gap-5 mt-4 items-start">
+
+<div class="space-y-3">
+  <div v-click>
+    <img src="/images/token1.png" class="rounded border border-gray-200 shadow-sm w-full" />
+    <div class="text-xs opacity-60 mt-2 text-center">① 原始文本</div>
+  </div>
+  <div v-click class="p-3 bg-amber-50 rounded-lg border border-amber-200 text-xs leading-relaxed">
+
+所有 Token 进入模型前都会被转成 <strong>向量（Vector）</strong> —— 一长串数字，之后全是数学运算。按 Token 计费的"Token"，就是这里切出来的这些块。<br/>想亲眼看分词：<code>platform.openai.com/tokenizer</code>
+
+  </div>
+</div>
+
+<div class="space-y-3">
+  <div v-click>
+    <img src="/images/token2.png" class="rounded border border-gray-200 shadow-sm w-full" />
+    <div class="text-xs opacity-60 mt-1 text-center">② 切分成 Token（彩色块）</div>
+  </div>
+  <div v-click>
+    <img src="/images/token3.png" class="rounded border border-gray-200 shadow-sm w-full" />
+    <div class="text-xs opacity-60 mt-1 text-center">③ 每个 Token 对应一个整数 ID</div>
+  </div>
+</div>
 
 </div>
 
@@ -262,10 +293,19 @@ Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
 
 # Attention Is All You Need
 
-Transformer 内部最重要的机制：**Self-Attention（自注意力）**
+Transformer 内部最重要的机制：**Self-Attention（自注意力）** —— 最早为机器翻译而生，解决 RNN 的"视野"问题
 
-<div v-click class="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-  <div class="flex items-center justify-center gap-1 text-base font-mono">
+<div class="grid grid-cols-5 gap-4 mt-3 items-start">
+
+<div v-click class="col-span-2">
+  <img src="/images/attention.png" class="rounded border border-gray-200 shadow-sm w-full max-h-80 object-contain" />
+  <div class="text-[10px] opacity-60 mt-1 text-center">2017 年 Transformer 原始架构</div>
+</div>
+
+<div class="col-span-3 space-y-3">
+
+<div v-click class="p-3 bg-gray-50 rounded-lg border border-gray-200">
+  <div class="flex items-center justify-center gap-1 text-sm font-mono flex-wrap">
     <span class="px-2 py-1 bg-teal-200 rounded border border-teal-400 font-bold">小明</span>
     <span class="px-2 py-1 opacity-50">去了</span>
     <span class="px-2 py-1 opacity-50">公园</span>
@@ -275,35 +315,129 @@ Transformer 内部最重要的机制：**Self-Attention（自注意力）**
     <span class="px-2 py-1 opacity-50">又</span>
     <span class="px-2 py-1 opacity-50">回家了</span>
   </div>
-  <div class="text-center mt-2 text-xs text-teal-600">← "他" 能跨越多个 Token 回看到"小明" —— 这就是全局视野</div>
+  <div class="text-center mt-2 text-xs text-teal-600">"他" 跨越多个 Token 回看到"小明" —— 全局视野</div>
 </div>
 
-<div class="grid grid-cols-2 gap-4 mt-3">
-<div>
+<div class="text-sm space-y-1">
 
 <v-clicks>
 
-- 不预设"只有附近重要" —— <span v-mark="{ at: 5, type: 'highlight', color: '#f59e0b' }">任意两位置都可能相关</span>
+- 不预设"只有附近重要" —— <span v-mark="{ at: 4, type: 'highlight', color: '#f59e0b' }">任意两位置都可能相关</span>
 - 相关性由 **内容决定**，动态分配权重
 - 本质：**一个内容驱动的全局软检索系统**
-- 网络够深，自然涌现出各种能力
 
 </v-clicks>
 
 </div>
-<div v-click>
 
-### The Bitter Lesson
+</div>
 
-把人类经验（语法规则、局部启发）写死进系统，<br/>最终往往打不过 **依赖通用算力 + 全局搜索** 的简单机制。
+</div>
 
-<div class="mt-3 text-xs opacity-70">
+---
 
+# QKV：Attention 怎么算
+
+让大家对"注意力计算有多贵"有个感受 —— 复杂度是 <strong>O(N²)</strong>
+
+<div class="grid grid-cols-5 gap-4 mt-3 items-start">
+
+<div class="col-span-2 space-y-2">
+
+<div v-click class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-center">
+
+$$\text{Attention}(Q, K, V) = \text{softmax}\!\left(\tfrac{QK^\top}{\sqrt{d_k}}\right) V$$
+
+<div class="text-[11px] opacity-60 mt-1">每个 Token 生成三组向量：Query / Key / Value</div>
+
+</div>
+
+<div v-click class="p-2 bg-teal-50 rounded-lg border border-teal-200 text-[11px] leading-snug">
+<strong>图书馆的类比</strong>：Q = 你搜什么 · K = 书的标签 · V = 书的内容。Q·K 算匹配度 → softmax 归一成权重 → 按权重把 V 加权相加
+</div>
+
+</div>
+
+<div class="col-span-3 space-y-2 text-xs">
+
+<div v-click class="p-2 bg-amber-50 rounded-lg border-l-4 border-amber-400">
+<strong>为什么是 O(N²)？</strong> N 个 Token，每个都要跟所有 Token 算一次相关性 —— N × N 个点乘
+</div>
+
+<div v-click class="grid grid-cols-4 gap-1 text-center">
+  <div class="p-1.5 bg-teal-50 rounded border border-teal-200">
+    <div class="font-mono font-bold text-sm">1K</div>
+    <div class="opacity-60 text-[10px]">1M 次</div>
+  </div>
+  <div class="p-1.5 bg-teal-100 rounded border border-teal-300">
+    <div class="font-mono font-bold text-sm">10K</div>
+    <div class="opacity-60 text-[10px]">1 亿次</div>
+  </div>
+  <div class="p-1.5 bg-amber-100 rounded border border-amber-300">
+    <div class="font-mono font-bold text-sm">100K</div>
+    <div class="opacity-60 text-[10px]">100 亿次</div>
+  </div>
+  <div class="p-1.5 bg-red-100 rounded border border-red-300">
+    <div class="font-mono font-bold text-sm">1M</div>
+    <div class="opacity-60 text-[10px]">1 万亿次</div>
+  </div>
+</div>
+
+<div v-click class="p-2 bg-violet-50 rounded-lg border border-violet-200 leading-snug">
+<strong>直接后果</strong>：上下文翻倍，算力和显存开销 <strong>变 4 倍</strong> —— 这就是为什么 Context 长度是稀缺资源，也是长上下文优化（FlashAttention、稀疏/线性注意力）想解决的核心问题
+</div>
+
+<div v-click class="text-[10px] italic opacity-70 text-center">
+顺带：模型并不理解因果，它在计算条件概率 $P(y|x)$
+</div>
+
+</div>
+
+</div>
+
+---
+
+# The Bitter Lesson
+
+把人类经验写死进系统，往往打不过 <strong>通用算力 + 全局搜索</strong> 的简单机制
+
+<div class="grid grid-cols-5 gap-5 mt-4 items-start">
+
+<div v-click class="col-span-2">
+  <img src="/images/ds.webp" class="rounded border border-gray-200 shadow-sm w-full" />
+  <div class="text-[11px] opacity-60 mt-2 text-center">DeepSeek-V4：<strong>1.6T</strong> 总参数 / 每 Token 激活 <strong>49B</strong>（MoE 架构）</div>
+</div>
+
+<div class="col-span-3 space-y-2 text-sm">
+
+<div v-click class="p-3 bg-teal-50 rounded-lg border border-teal-200">
+<strong>越大越深，效果越好</strong> —— 只要网络够深、数据够大，模型在"凑概率"的过程中，自己"悟"出了逻辑、常识甚至初步推理能力
+</div>
+
+<div v-click class="p-3 bg-gray-50 rounded-lg border border-gray-200">
+<strong>科普一下业界的两个 "大"</strong>：
+<div class="grid grid-cols-2 gap-2 mt-2 text-xs">
+  <div class="p-2 bg-white rounded border border-gray-200">
+    <strong class="text-teal-600">B = Billion（十亿）</strong><br/>
+    衡量 <u>参数量</u>。7B、70B、671B —— 指模型里可训练的权重数。DeepSeek-V4 总参数 <strong>1.6T</strong>（每 Token 激活 <strong>49B</strong>，MoE）
+  </div>
+  <div class="p-2 bg-white rounded border border-gray-200">
+    <strong class="text-amber-600">T = Trillion（万亿）</strong><br/>
+    衡量 <u>训练数据量</u>（Token 数）。主流大模型训练数据通常在 <strong>10T ~ 15T Token</strong> 量级
+  </div>
+</div>
+</div>
+
+<div v-click class="p-3 bg-amber-50 rounded-lg border border-amber-200">
+<strong>语言任务里 Transformer 特别强</strong>，因为语言的规律很多就藏在 <u>全局关系匹配</u> 里，而不是局部的语法书里
+</div>
+
+<div v-click class="p-2 bg-emerald-50 rounded border border-emerald-200 italic text-xs">
 Richard Sutton：利用算力规模化的通用方法，最终总是胜出
-
 </div>
 
 </div>
+
 </div>
 
 ---
@@ -501,6 +635,52 @@ $(a+b)+c \neq a+(b+c)$
 
 ---
 
+# 从续写机 → 问答助手
+
+预训练出来的 LLM 只是个"文字续写机" —— <strong>SFT + RL</strong> 才把它调教成 ChatGPT
+
+<div class="mt-3 text-xs opacity-60">同一个问题 <span class="font-mono bg-gray-100 px-1.5 py-0.5 rounded">"1+1 等于几？"</span> 在三个阶段的模型眼里：</div>
+
+<div class="mt-3 grid grid-cols-3 gap-3 text-sm">
+
+<div v-click class="p-3 bg-gray-50 rounded-lg border border-gray-300">
+  <div class="text-xs font-mono opacity-60 mb-1">① Pretrain</div>
+  <div class="font-bold mb-2">续写机</div>
+  <div class="text-xs opacity-70 mb-2">只学会：下一个 Token 是什么</div>
+  <div class="p-2 bg-white rounded border border-gray-200 text-xs italic leading-snug">
+  "1+1 等于几？这是每个小朋友上学第一天都会遇到的问题。让我们一起来看看……"
+  </div>
+  <div class="text-[11px] mt-2 opacity-60">📚 海量互联网文本 · 自监督</div>
+</div>
+
+<div v-click class="p-3 bg-teal-50 rounded-lg border border-teal-300">
+  <div class="text-xs font-mono opacity-60 mb-1">② SFT（监督微调）</div>
+  <div class="font-bold mb-2">问答助手 + 人设</div>
+  <div class="text-xs opacity-70 mb-2">教它"遇到问题该这样回答"</div>
+  <div class="p-2 bg-white rounded border border-teal-200 text-xs leading-snug">
+  "<strong>1 + 1 = 2</strong>。这是加法最基础的例子，属于一年级数学的范畴。还需要我展开讲解吗？"
+  </div>
+  <div class="text-[11px] mt-2 opacity-60">✍️ 标注员写的高质量 Q&A · 学格式、学口吻、学拒绝</div>
+</div>
+
+<div v-click class="p-3 bg-amber-50 rounded-lg border border-amber-300">
+  <div class="text-xs font-mono opacity-60 mb-1">③ RL（强化学习）</div>
+  <div class="font-bold mb-2">会做题、会取舍</div>
+  <div class="text-xs opacity-70 mb-2">奖好回答、罚坏回答</div>
+  <div class="p-2 bg-white rounded border border-amber-200 text-xs leading-snug">
+  "<strong>2</strong>。<span class="opacity-60">（根据复杂题目自动选择是否展开思考 / 调用工具 / 给出代码验证）</span>"
+  </div>
+  <div class="text-[11px] mt-2 opacity-60">🎯 RLHF = 对齐偏好 · RLVR = 数学代码等可验证任务</div>
+</div>
+
+</div>
+
+<div v-click class="mt-4 p-3 bg-emerald-50 rounded-lg border-l-4 border-emerald-400 text-xs">
+<strong>关键认知</strong>：模型的"聪明"和"听话"是 <u>两个独立变量</u>。预训练决定知识广度，SFT 决定行为风格，RL 决定解题能力与对齐程度 —— 各家厂商在这三个环节做了不同的取舍
+</div>
+
+---
+
 # 不同 AI 的"口癖"
 
 理解了训练流程，就能解释为什么 ChatGPT 和 Claude 说话风格不一样
@@ -560,6 +740,10 @@ $(a+b)+c \neq a+(b+c)$
   <div class="px-3 py-2 bg-emerald-100 rounded border border-emerald-300 text-center font-medium">Transformer<br/><span class="text-xs opacity-70">统一处理</span></div>
 </div>
 
+<div class="grid grid-cols-2 gap-5 mt-4 items-start">
+
+<div class="text-sm">
+
 <v-clicks>
 
 - 图像被切成小块（Patch），每个 Patch 编码为一个 Token —— 这就是 **Vision Transformer**
@@ -567,12 +751,20 @@ $(a+b)+c \neq a+(b+c)$
 
 </v-clicks>
 
-<div v-click class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200">
+<div v-click class="mt-3 p-3 bg-teal-50 rounded-lg border border-teal-200">
 
 ### 原生多模态
 
-训练时就混合了多种模态的数据（文本 + 图像 + 音频），而不是后期拼接。<br/>
-如 Google 的 Gemma 4 —— 从一开始就"看得见也听得到"，并且是开源的。
+训练时就混合了多种模态的数据（文本 + 图像 + 音频），而不是后期拼接。如 Google 的 Gemma 4 —— 从一开始就"看得见也听得到"，并且开源。
+
+</div>
+
+</div>
+
+<div v-click>
+  <img src="/images/vision.jpg" class="rounded border border-gray-200 shadow-sm w-full" />
+  <div class="text-[11px] opacity-60 mt-2 text-center">Vision Transformer：图像 → Patch → Token → 与文本同架构处理</div>
+</div>
 
 </div>
 
@@ -694,78 +886,27 @@ An LLM agent runs tools in a loop to achieve a goal.
 
 以"帮我读取 report.txt 并写个摘要"为例
 
-<div class="mt-2">
-  <div class="grid grid-cols-3 text-center text-xs font-medium">
-    <div><span class="px-3 py-1 bg-purple-100 rounded-md">用户</span></div>
-    <div><span class="px-3 py-1 bg-teal-100 rounded-md">Agent（本地程序 + 工具）</span></div>
-    <div><span class="px-3 py-1 bg-violet-100 rounded-md">LLM（云端模型）</span></div>
-  </div>
-</div>
+<div class="mt-4">
 
-<div class="relative mt-1">
-  <div class="absolute inset-0 grid grid-cols-3 pointer-events-none opacity-20">
-    <div class="flex justify-center"><div class="border-l border-dashed border-gray-400 h-full"></div></div>
-    <div class="flex justify-center"><div class="border-l border-dashed border-gray-400 h-full"></div></div>
-    <div class="flex justify-center"><div class="border-l border-dashed border-gray-400 h-full"></div></div>
-  </div>
+```mermaid {scale: 0.72}
+sequenceDiagram
+    autonumber
+    participant U as 用户
+    participant A as Agent<br/>（本地程序 + 工具）
+    participant L as LLM<br/>（云端模型）
 
-  <div class="relative text-xs py-2 space-y-1">
+    U->>A: "帮我读取 report.txt 并写摘要"
+    A->>L: [系统提示 + 可用工具列表 + 用户请求]
+    L-->>A: 调用 read_file("report.txt")
+    Note over A: ⚙ 执行工具：读取文件内容
+    A->>L: [返回文件内容]
+    L-->>A: 调用 write_file("summary.txt", "...")
+    Note over A: ⚙ 执行工具：写入摘要文件
+    A->>L: [写入成功]
+    L-->>A: "已完成，摘要写入 summary.txt"
+    A-->>U: "已完成，摘要写入 summary.txt"
+```
 
-  <div v-click class="grid grid-cols-3 py-1">
-    <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-    <div class="flex items-center"><span class="text-teal-500 mr-1">▸</span>"帮我读取 report.txt 并写摘要"</div>
-    <div></div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div></div>
-    <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-    <div class="flex items-center"><span class="text-teal-500 mr-1">▸</span>[系统提示 + 可用工具列表 + 用户请求]</div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div></div>
-    <div class="flex items-center"><span class="text-violet-500 mr-1">◂</span>调用 <code class="text-[10px]">read_file("report.txt")</code></div>
-    <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div></div>
-    <div class="flex items-center justify-center"><span class="px-3 py-0.5 bg-teal-50 rounded border border-teal-200 text-teal-600">⚙ Agent 执行工具：读取文件内容</span></div>
-    <div></div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div></div>
-    <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-    <div class="flex items-center"><span class="text-teal-500 mr-1">▸</span>[返回文件内容]</div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div></div>
-    <div class="flex items-center"><span class="text-violet-500 mr-1">◂</span>调用 <code class="text-[10px]">write_file("summary.txt", "...")</code></div>
-    <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div></div>
-    <div class="flex items-center justify-center"><span class="px-3 py-0.5 bg-teal-50 rounded border border-teal-200 text-teal-600">⚙ Agent 执行工具：写入摘要文件</span></div>
-    <div></div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div></div>
-    <div class="flex items-center justify-end pr-2"><span class="text-gray-400 text-[10px]">────</span></div>
-    <div class="flex items-center"><span class="text-teal-500 mr-1">▸</span>[写入成功]</div>
-  </div>
-
-  <div v-click class="grid grid-cols-3 py-1">
-    <div class="flex items-center"><span class="text-purple-500 mr-1">◂</span></div>
-    <div class="flex items-center"><span class="text-purple-400">◂</span><span class="text-gray-400 text-[10px] mx-1">────</span><span class="text-violet-400">◂</span><span class="text-gray-400 text-[10px] ml-1">────</span></div>
-    <div class="flex items-center">"已完成，摘要写入 summary.txt"</div>
-  </div>
-
-  </div>
 </div>
 
 ---
@@ -1006,12 +1147,25 @@ clicks: 1
 
 向 AI 提供信息需要精确取舍 —— AI 喜欢文档、喜欢 CLI 工具
 
+<div class="grid grid-cols-2 gap-4 mt-3 items-start">
+
+<div>
+
 <v-clicks>
 
 - AI 读文档比人快，调用 CLI 也比人熟练 —— 喂给它的形式要 **文本化、结构化**
 - 所有的隐性信息需要 <span v-mark="{ at: 3, type: 'underline', color: '#14b8a6' }">显性化</span> —— 对 Agent 来说，看不到的等于不存在
 
 </v-clicks>
+
+</div>
+
+<div>
+  <img src="/images/thinking_with_tools.jpg" class="rounded border border-gray-200 shadow-sm w-full" />
+  <div class="text-[11px] opacity-60 mt-2 text-center">Tool-use 是多轮闭环：模型返回 tool call，客户端执行，结果追加到下一轮</div>
+</div>
+
+</div>
 
 <div v-click class="mt-4 p-4 bg-gray-50 rounded-lg border-l-4 border-gray-400 text-sm italic">
 
@@ -1040,14 +1194,14 @@ Agent 不只需要模型 —— 它需要一整套 **脚手架（Harness）**
 <div class="text-xs opacity-60 mt-3 italic">这部分内容本身可以单独开一次分享给程序同学</div>
 
 <div v-click class="mt-3">
-  <div class="text-xs mb-1 opacity-60 font-medium">一个完整的 Harness 包含什么？</div>
+  <div class="text-xs mb-2 opacity-60 font-medium">一个完整的 Harness 包含什么？</div>
   <div class="flex flex-wrap gap-2 text-xs">
-    <span v-click class="px-2 py-1 bg-teal-100 rounded border border-teal-200">System Prompts / CLAUDE.md / AGENTS.md</span>
-    <span v-click class="px-2 py-1 bg-teal-100 rounded border border-teal-200">Tools / Skills / MCP servers</span>
-    <span v-click class="px-2 py-1 bg-amber-100 rounded border border-amber-200">Sandbox / 文件系统 / 浏览器</span>
-    <span v-click class="px-2 py-1 bg-amber-100 rounded border border-amber-200">编排逻辑（子 Agent、模型路由）</span>
-    <span v-click class="px-2 py-1 bg-emerald-100 rounded border border-emerald-200">Hooks（压缩、续写、lint）</span>
-    <span v-click class="px-2 py-1 bg-emerald-100 rounded border border-emerald-200">可观测性（日志、成本、延迟）</span>
+    <span class="px-2 py-1 bg-teal-100 rounded border border-teal-200">System Prompts / CLAUDE.md / AGENTS.md</span>
+    <span class="px-2 py-1 bg-teal-100 rounded border border-teal-200">Tools / Skills / MCP servers</span>
+    <span class="px-2 py-1 bg-amber-100 rounded border border-amber-200">Sandbox / 文件系统 / 浏览器</span>
+    <span class="px-2 py-1 bg-amber-100 rounded border border-amber-200">编排逻辑（子 Agent、模型路由）</span>
+    <span class="px-2 py-1 bg-emerald-100 rounded border border-emerald-200">Hooks（压缩、续写、lint）</span>
+    <span class="px-2 py-1 bg-emerald-100 rounded border border-emerald-200">可观测性（日志、成本、延迟）</span>
   </div>
 </div>
 
@@ -1368,7 +1522,18 @@ LLM：广博的世界知识 + 短期记忆 + 活在数字世界
 
 <div v-click class="mt-3 p-3 bg-amber-50 rounded-lg border border-amber-200 text-sm">
 
+<div class="grid grid-cols-5 gap-3 items-center">
+<div class="col-span-3">
+
 **Jagged Frontier** —— 能解多元微积分，却数不对草莓里的 r。能力突破集中在可验证的技术领域，日常场景反而不是 RL 优化的重点。
+
+陶哲轩能用它辅助做数学，但它同时可能告诉你 <strong>9.11 &gt; 9.9</strong>。
+
+</div>
+<div class="col-span-2">
+  <img src="/images/9.11.jpg" class="rounded border border-amber-300 shadow-sm w-full" />
+</div>
+</div>
 
 </div>
 
@@ -1569,6 +1734,53 @@ graph LR
 <div v-click class="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200 text-sm text-center italic">
 
 "If a task is solvable and it's easy to verify, then it's going to get solved by AI." — Verifier's Law
+
+</div>
+
+---
+
+# 最后：把这份 PPT 交给 AI
+
+这场分享本身就可以拿去验证 AI 的能力 —— **能问 AI 关于 AI 的问题，就是今天的目的**
+
+<div class="mt-4 grid grid-cols-5 gap-4 items-start">
+
+<div class="col-span-2 text-sm space-y-3">
+
+<div v-click class="p-3 bg-teal-50 rounded-lg border border-teal-200">
+
+**推荐的素材：** [onevcat/2026-let's-vision](https://github.com/onevcat/2026-let-s-vision) —— 谢天在 Let's Vision 26 的分享 slides + repo
+
+</div>
+
+<div v-click class="p-3 bg-amber-50 rounded-lg border border-amber-200">
+
+**怎么看？** 把 repo clone 下来，让 Claude Code / Codex 按下面这段 prompt 展开分析 —— 它会替你把 slides、skills、ref 链接、博客都吃一遍
+
+</div>
+
+<div v-click class="p-3 bg-emerald-50 rounded-lg border border-emerald-200 text-xs">
+
+这就是 <strong>build for agent</strong> —— 一份结构化的 repo，对 AI 来说比任何 PPT 导读都好读
+
+</div>
+
+</div>
+
+<div v-click class="col-span-3 p-4 bg-gray-900 text-gray-100 rounded-lg text-xs font-mono leading-relaxed">
+
+<div class="text-teal-400 mb-2">$ 给 Agent 的 prompt：</div>
+
+请你完整研究谢天的这个 ppt / 仓库，并输出一份结构化分析报告。要求：
+
+1) 提炼这套演讲的核心思想，整体思路是什么，核心结论是什么，有哪些可以观察和落地的启发？
+2) 对比 slides 最终内容与发展过程，slides 内容是如何发展的，谢天为啥要做这样的取舍？
+3) repo 中有些什么 skill，它们是做什么的？能使用在我自己的项目或者智能体中么？
+4) 整理谢天这份 slides 里所有的 ref，适合我阅读吗？给出一份"观众扩展阅读路径"（按 30 分钟 / 2 小时 / 半天三个时间预算）。
+5) 谢天怎么变得这么强的，能从他的博客中看出来吗？
+6) 我该怎么和谢天打好关系呢，学到了知识是不是要给他打点钱啥的？
+
+</div>
 
 </div>
 
