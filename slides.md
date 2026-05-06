@@ -19,7 +19,7 @@ themeConfig:
   eventLogo: ''
   eventUrl: ''
 drawings:
-  enabled: true
+  enabled: false
 layout: center
 class: text-center
 ---
@@ -361,7 +361,6 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\r
 <div class="grid grid-cols-5 gap-4 mt-4 items-start">
 
 <div v-click class="col-span-2">
-  <img src="/images/self_attention_0.png" class="rounded border border-gray-200 shadow-sm w-full" />
   <div class="text-[11px] opacity-60 mt-2 text-center">"A robot must obey the orders given <strong>it</strong> by human beings..."<br/>"it" 该看向谁？—— 由 Q 和 K 的匹配度决定</div>
 </div>
 
@@ -1267,31 +1266,33 @@ AI 与游戏开发
 
 <div class="mt-4 grid grid-cols-3 gap-3">
 
-<div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200">
-
-### AI 辅助制作
-
-<div class="text-xs space-y-1 mt-2">
-<div class="p-1 bg-white/60 rounded">AIGC 前期验证、资产生成</div>
-<div class="p-1 bg-white/60 rounded">Coding Agent + UE MCP/Skill</div>
-</div>
-
-<div class="mt-2 text-xs opacity-70">门槛低，潜力大</div>
-
-</div>
-
 <div v-click class="p-4 bg-amber-50 rounded-lg border border-amber-200">
 
 ### AI 进游戏
 
 <div class="text-xs space-y-1 mt-2">
-<div class="p-1 bg-white/60 rounded">技术：DLSS、神经贴图压缩</div>
-<div class="p-1 bg-white/60 rounded">玩法：数字人、智能 NPC</div>
+<div class="p-1 bg-white/60 rounded">技术：DLSS、神经贴图压缩等</div>
+<div class="p-1 bg-white/60 rounded">玩法：数字人、智能 NPC等</div>
 </div>
 
-<div class="mt-2 text-xs opacity-70">已在落地</div>
+<div class="mt-2 text-xs opacity-70">已在慢慢落地</div>
 
 </div>
+
+<div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200">
+
+### AI 辅助制作
+
+<div class="text-xs space-y-1 mt-2">
+<div class="p-1 bg-white/60 rounded">AIGC 资产生成等</div>
+<div class="p-1 bg-white/60 rounded">Coding Agent + UE MCP/Skill</div>
+</div>
+
+<div class="mt-2 text-xs opacity-70">探索的方向</div>
+
+</div>
+
+
 
 <div v-click class="p-4 bg-purple-50 rounded-lg border border-purple-200">
 
@@ -1305,135 +1306,142 @@ AI 与游戏开发
 
 </div>
 
-<div v-click class="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200 text-xs opacity-70 text-center">
-
-游戏引擎是游戏的 OS，极为复杂，不同子系统差别巨大 —— 而且不像 Linux 一样万物皆文件
-
+<div v-click class="mt-3 p-3 bg-teal-50 rounded-lg border border-teal-200 text-sm text-center max-w-lg mx-auto">
+我们主要谈后俩
 </div>
 
 ---
 
-# UE 是给人用的
+# 辅助制作的最大痛点
 
-AI 时代需要设计给 Agent 用的接口
+通过 **MCP / Skill** 把 UE 功能包成接口给 AI —— 但不够给力
 
-<div class="mt-4 text-sm">
+<div class="mt-4 space-y-3">
 
-**场景**：搭好了关卡，想做潜行玩法 —— AI 能不能帮忙验证？
-
+<div v-click class="flex justify-center">
+<img src="/images/unreal_mcp.png" class="max-h-72 rounded border border-gray-300 shadow-sm object-contain" />
 </div>
 
-<div class="mt-3 space-y-2">
-  <div v-click class="flex items-center gap-3 p-2 bg-emerald-50 rounded-lg border border-emerald-200">
-    <div class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs flex items-center justify-center flex-shrink-0">✓</div>
-    <div class="flex-1 text-sm">写完代码 + 编译</div>
-    <span class="text-xs text-emerald-600 flex-shrink-0">Agent 擅长</span>
-  </div>
-  <div v-click class="flex items-center gap-3 p-2 bg-amber-50 rounded-lg border border-amber-200">
-    <div class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center flex-shrink-0">!</div>
-    <div class="flex-1 text-sm">自动启动引擎到达测试场景</div>
-    <span class="text-xs text-amber-600 flex-shrink-0">需要 GM 命令 / 自动化入口</span>
-  </div>
-  <div v-click class="flex items-center gap-3 p-2 bg-red-50 rounded-lg border border-red-200">
-    <div class="w-6 h-6 rounded-full bg-red-500 text-white text-xs flex items-center justify-center flex-shrink-0">✗</div>
-    <div class="flex-1 text-sm">控制角色蹲下走到敌人背后，观察警觉指示器</div>
-    <span class="text-xs text-red-600 flex-shrink-0">需要视觉 + 精确操作</span>
-  </div>
-  <div v-click class="flex items-center gap-3 p-2 bg-red-50 rounded-lg border border-red-200">
-    <div class="w-6 h-6 rounded-full bg-red-500 text-white text-xs flex items-center justify-center flex-shrink-0">✗</div>
-    <div class="flex-1 text-sm">暗杀图标出现时点击暗杀（对延迟有要求）</div>
-    <span class="text-xs text-red-600 flex-shrink-0">纯 AI 很难做到</span>
-  </div>
+<div v-click class="mt-3 p-3 bg-teal-50 rounded-lg border border-teal-200 text-sm text-center max-w-lg mx-auto">
+UE 是给 <strong>人</strong> 用的 —— AI 时代需要给 <strong>Agent</strong> 设计的接口
 </div>
-
-<div v-click class="mt-3 text-sm opacity-70 text-center">
-
-**不代表不能解决** —— 但需要我们提供更好的接口，而非依赖纯视觉
-
-</div>
-
----
-
-# AI 能做的 & QA 很难取代
-
-逻辑和画面分离做得好的地方，AI 能发挥大作用
-
-<v-clicks>
-
-- **杀戮尖塔 CLI**（wuhao21/sts2-cli）：战斗逻辑文本化 → AI 可以自动测试平衡性
-- **战斗自动化**：如果战斗系统有干净的 API → AI 可以做大量模拟
-- **自动化回归测试**：基于文本日志的流程验证
-
-</v-clicks>
-
-<div v-click class="mt-4 p-4 bg-amber-50 rounded-lg border border-amber-200">
-
-### 但 QA 很难取代
-
-AI 很难端到端完成游戏功能验证 —— 游戏是给 **人** 设计的，不是给 AI 设计的
-
-做出来是一方面，**细节打磨是另一方面**：动画过渡是否流畅、打击感够不够、按钮反馈对不对 —— 这些"感觉"上的事，很难靠 AI 验证
-
-</div>
-
----
-
-# 辅助制作
-
-AI 可以在现有工作流中发挥价值
-
-<v-clicks>
-
-- **Code Review**：代码、蓝图、配置都可以让 AI 审查
-- **辅助 uasset 生成**：需要改代码 + MCP 封装，case by case 讨论
-
-</v-clicks>
-
-<div v-click class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200 text-sm italic">
-
-"Tim, can you guys please allow plain text serialization of Unreal assets? Not only will it simplify source control, but it will also let LLMs shine in Unreal dev."
-
-**Tim Sweeney**: "This is in the works, but it's many months away, as it relies on us completing a bunch of Verse/VSON work."
-
-</div>
-
-<div v-click class="mt-4 text-sm opacity-70">
-
-连 Epic 都在考虑让资产对 AI 友好 —— 这是行业方向
-
-</div>
-
----
-
-# AI 在基建好的时候才能发挥最大作用
-
-<div class="mt-6 space-y-3">
-  <div v-click class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-    <div class="w-5 h-5 rounded border-2 border-teal-400 flex-shrink-0 flex items-center justify-center text-teal-500 text-xs">?</div>
-    <div>自动测试的 API 是不是全？</div>
-  </div>
-  <div v-click class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-    <div class="w-5 h-5 rounded border-2 border-teal-400 flex-shrink-0 flex items-center justify-center text-teal-500 text-xs">?</div>
-    <div>知识库是不是完整？</div>
-  </div>
-  <div v-click class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-    <div class="w-5 h-5 rounded border-2 border-teal-400 flex-shrink-0 flex items-center justify-center text-teal-500 text-xs">?</div>
-    <div>流程是不是都清晰？</div>
-  </div>
-  <div v-click class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-    <div class="w-5 h-5 rounded border-2 border-teal-400 flex-shrink-0 flex items-center justify-center text-teal-500 text-xs">?</div>
-    <div>逻辑和画面是不是做了良好的分离？</div>
-  </div>
-</div>
-
-<div v-click class="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200 text-center text-lg">
-
-AI 放大的是你已有的基建质量 —— <span v-mark="{ at: 6, type: 'underline', color: '#10b981' }">基建越好，AI 的杠杆越大</span>
 
 </div>
 
 <SlideRefs :refs="[
-  { label: '沉淀团队资产 — AI Agent 的道与术 / 21', url: 'https://let-s-vision-2026.onev.cat/21' }
+  { label: 'chongdashu/unreal-mcp', url: 'https://github.com/chongdashu/unreal-mcp' }
+]" />
+
+---
+
+# 让 AI 直接生成玩法可行吗？
+
+**场景**：搭好了关卡，想做个潜行玩法 —— AI 能不能从头做完？
+
+<div class="mt-3 space-y-2">
+  <div v-click class="flex items-center gap-3 p-2 bg-emerald-50 rounded-lg border border-emerald-200">
+    <div class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs flex items-center justify-center flex-shrink-0">1</div>
+    <div class="flex-1 text-sm">写完代码 + 编译</div>
+    <span class="text-xs text-emerald-600 flex-shrink-0">没问题</span>
+  </div>
+  <div v-click class="flex items-center gap-3 p-2 bg-amber-50 rounded-lg border border-amber-200">
+    <div class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs flex items-center justify-center flex-shrink-0">2</div>
+    <div class="flex-1 text-sm">自动启动引擎到达测试场景（GM 命令或自动化入口）</div>
+    <span class="text-xs text-amber-600 flex-shrink-0">需要打通</span>
+  </div>
+  <div v-click class="flex items-center gap-3 p-2 bg-red-50 rounded-lg border border-red-200">
+    <div class="w-6 h-6 rounded-full bg-red-500 text-white text-xs flex items-center justify-center flex-shrink-0">3</div>
+    <div class="flex-1 text-sm">下蹲走到正在巡逻的敌人背后，观察 <strong>警觉指示器</strong>（位置 / 程度对不对）</div>
+    <span class="text-xs text-red-600 flex-shrink-0">需要视觉</span>
+  </div>
+  <div v-click class="flex items-center gap-3 p-2 bg-red-50 rounded-lg border border-red-200">
+    <div class="w-6 h-6 rounded-full bg-red-500 text-white text-xs flex items-center justify-center flex-shrink-0">4</div>
+    <div class="flex-1 text-sm">暗杀图标出现的瞬间点击暗杀（<strong>QTE</strong> 对延迟敏感）</div>
+    <span class="text-xs text-red-600 flex-shrink-0">视觉模型来不及</span>
+  </div>
+</div>
+
+<div v-click class="mt-3 p-3 bg-gray-50 rounded-lg border-l-4 border-gray-400 text-xs leading-relaxed">
+即使有带视觉、带推理的模型（Claude 的 computer use 之类），<strong>纯视觉链路有 latency</strong>，QTE 来不及 —— 不代表不能解决，但纯 AI 难做到。<br/>
+一个玩法尚且如此，更别提加上美术、关卡设计、数值。
+</div>
+
+<div v-click class="mt-4 p-3 bg-teal-50 rounded-lg border border-teal-200 text-sm text-center max-w-lg mx-auto">
+游戏是给 <strong>人</strong> 设计的，不是给 AI 设计的
+</div>
+
+---
+
+# AI 能做的：逻辑文本化的地方
+
+逻辑和画面分离做得好的部分，AI 能发挥大作用
+
+<div class="mt-4 grid grid-cols-2 gap-4 items-start">
+
+<div class="space-y-3 text-sm">
+
+<div v-click class="p-3 bg-teal-50 rounded-lg border border-teal-200">
+<div class="text-xs opacity-60 mb-1">示例</div>
+<strong>杀戮尖塔 2 CLI</strong><br/>
+<span class="text-xs">战斗逻辑完全文本化，让 AI 自己爬塔跑战斗，自动测平衡</span>
+</div>
+
+<div v-click class="p-3 bg-gray-50 rounded-lg border-l-4 border-gray-400 text-xs leading-relaxed">
+<strong>文本化本质上是 token 化</strong><br/>
+想办法让信息变成 token 喂给 AI，AI 才能真正"看到"它
+</div>
+
+</div>
+
+<div v-click class="flex justify-center">
+<img src="/images/sts2.gif" class="max-h-96 rounded border border-gray-300 shadow-sm object-contain" />
+</div>
+
+</div>
+
+<SlideRefs :refs="[
+  { label: 'wuhao21/sts2-cli', url: 'https://github.com/wuhao21/sts2-cli' }
+]" />
+
+---
+
+# 回到辅助制作：基建好，AI 才有杠杆
+
+<div class="mt-6 space-y-3 text-sm">
+<div v-click class="p-3 bg-teal-50 rounded-lg border-l-4 border-teal-400">
+<strong>Code 生成</strong> —— 代码、配置等文本天然可以让 AI 读取与生成
+</div>
+
+<div v-click class="p-3 bg-teal-50 rounded-lg border-l-4 border-teal-400">
+<strong>uasset 生成</strong> —— binary格式，需要改代码 + MCP 封装，只能case by case 讨论
+</div>
+
+
+<div v-click class="p-3 bg-gray-50 rounded-lg border border-gray-200 text-xs italic leading-relaxed">
+"Tim, can you guys please allow <strong>plain text serialization</strong> of Unreal assets? Not only will it simplify source control, but it will also let LLMs shine in Unreal dev."<br/><br/>
+<strong>Tim Sweeney</strong>: "This is in the works, but it's many months away..."
+</div>
+
+</div>
+
+<div v-click class="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200 text-center text-lg">
+AI 放大的是你已有的基建质量 —— <span v-mark="{ at: 4, type: 'underline', color: '#10b981' }">基建越Agent友好，杠杆越大</span>
+</div>
+
+<SlideRefs :refs="[
+  { label: '沉淀团队资产 — AI Agent 的道与术 / 21', url: 'https://let-s-vision-2026.onev.cat/21?clicks=4' }
+]" />
+
+---
+
+# 世界模型：端到端生成
+
+<div class="mt-4 flex justify-center">
+  <Youtube id="YxkGdX4WIBE?start=27" width="720" height="405" />
+</div>
+
+<SlideRefs :refs="[
+  { label: 'Project Genie — Google DeepMind', url: 'https://blog.google/innovation-and-ai/models-and-research/google-deepmind/project-genie/' }
 ]" />
 
 ---
@@ -1476,12 +1484,6 @@ AI 放大的是你已有的基建质量 —— <span v-mark="{ at: 6, type: 'und
 - 创意受制于预定义规则
 
 </div>
-
-</div>
-
-<div v-click class="mt-4 p-3 bg-amber-50 rounded-lg border-l-4 border-amber-400 text-sm text-center">
-
-两者可以互补
 
 </div>
 
