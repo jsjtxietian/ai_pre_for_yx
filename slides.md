@@ -1113,7 +1113,7 @@ Tool-use 是多轮闭环 —— 每轮都把历史拼进去送进模型，Token 
 </div>
 
 <SlideRefs :refs="[
-  { label: 'AI Agent 的道与术 / 13 — onevcat', url: 'https://let-s-vision-2026.onev.cat/13' }
+  { label: 'DeepSeek Thinking Mode — API Docs', url: 'https://api-docs.deepseek.com/guides/thinking_mode' }
 ]" />
 
 ---
@@ -1479,9 +1479,9 @@ AI 放大的是你已有的基建质量 —— <span v-mark="{ at: 6, type: 'und
 
 </div>
 
-<div v-click class="mt-4 p-3 bg-amber-50 rounded-lg border-l-4 border-amber-400 text-sm">
+<div v-click class="mt-4 p-3 bg-amber-50 rounded-lg border-l-4 border-amber-400 text-sm text-center">
 
-**结论**：短期内 World Model **不会** 取代游戏引擎做玩法 —— 规则性的互动体验必须依赖确定性的引擎。但两者可以互补，比如引擎负责核心玩法，World Model 做背景内容生成。
+两者可以互补
 
 </div>
 
@@ -1495,254 +1495,105 @@ LLM 与人，各自的优势
 
 ---
 
-# Summoning a Ghost
+# Jagged Intelligence
 
-LLM：广博的世界知识 + 短期记忆 + 活在数字世界
+LLM 的能力边界是 <strong>锯齿状</strong>的 —— 同一个模型，能力分布凹凸不平
 
-<v-clicks>
+<div v-click class="mt-5 p-4 bg-gray-50 rounded-lg border border-gray-300 space-y-3">
 
-- 大模型没有真正的推理能力 —— 但它可以显得有，也可以借助外部工具（代码等）"有"
-- 它学到 $P(y|x)$（观测条件概率），而非 $P(y|do(x))$（干预因果）—— 是 **因果痕迹压缩器**，不是因果机器
-- 日常工作、代码报错、设计套路，前人踩过的坑都在网上 —— AI 只要"见过"，就能瞬间调取
+<div class="grid grid-cols-7 gap-3 items-center text-sm">
+  <div class="col-span-3 text-right">数不清 "strawberry 里有几个 r"</div>
+  <div class="col-span-1 text-center text-xl font-bold text-gray-400">↔</div>
+  <div class="col-span-3 text-left">却能写出 <strong>像模像样的报告</strong></div>
+</div>
 
-</v-clicks>
+<div class="grid grid-cols-7 gap-3 items-center text-sm">
+  <div class="col-span-3 text-right">分不清 <strong>9.11 和 9.8</strong> 哪个大</div>
+  <div class="col-span-1 text-center text-xl font-bold text-gray-400">↔</div>
+  <div class="col-span-3 text-left">却能帮 <strong>陶哲轩</strong> 攻克研究级数学问题</div>
+</div>
 
-<div v-click class="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200 text-sm italic">
-
-"LLM research is about summoning ghosts — imperfect replicas, a statistical distillation of humanity's documents. It's possible that ghosts:animals :: planes:birds."
+<div class="flex justify-center pt-1">
+  <img src="/images/9.11.png" class="rounded border border-gray-300 shadow-sm max-h-36 object-contain" />
+</div>
 
 </div>
 
-<div v-click class="mt-3 p-3 bg-amber-50 rounded-lg border border-amber-200 text-sm">
-
-<div class="grid grid-cols-5 gap-3 items-center">
-<div class="col-span-3">
-
-**Jagged Frontier** —— 能解多元微积分，却数不对草莓里的 r。能力突破集中在可验证的技术领域，日常场景反而不是 RL 优化的重点。
-
-陶哲轩能用它辅助做数学，但它同时可能告诉你 <strong>9.11 &gt; 9.9</strong>。
-
-</div>
-<div class="col-span-2">
-  <img src="/images/9.11.jpg" class="rounded border border-amber-300 shadow-sm w-full" />
-</div>
-</div>
-
+<div v-click class="mt-3 p-3 bg-teal-50 rounded-lg border-l-4 border-teal-400 text-xs leading-relaxed">
+微积分不错的人，通常也能算清楚 <strong>9.11 和 9.8 哪个大</strong>（整体就是调皮一些）—— 人的能力曲线一般是 <strong>平滑</strong>的。<br/>
+LLM 不一样：<span v-mark="{ at: 3, type: 'highlight', color: '#14b8a6' }">很弱和很强紧挨在一起</span>，能力分布是 <strong>锯齿状</strong>的 —— 跟人打交道形成的直觉，套到 LLM 上常常会被打脸。
 </div>
 
 <SlideRefs :refs="[
   { label: 'Jagged Intelligence — Karpathy', url: 'https://x.com/karpathy/status/1816531576228053133' },
-  { label: 'Peaky capabilities — Karpathy', url: 'https://x.com/karpathy/status/2042334451611693415' }
-]" />
-
----
-layout: two-cols
----
-
-# LLM vs. 人
-
-<div class="pr-4">
-
-### LLM 擅长的
-
-<v-clicks>
-
-- 语料多的领域（代码、数学、通用知识）
-- 易于验证的任务
-- **带宽大** —— 刷刷一下看几十个文件、疯狂爬网页
-- 反过来说：私有数据、合规审查、深度业务嵌入 —— 不擅长
-
-</v-clicks>
-
-<div v-click class="mt-3 p-3 bg-gray-50 rounded border border-gray-200 text-xs italic">
-
-"AI will first automate things easier to form closed-loop systems. Software engineering has tight closed loops + high economic value." — Elad Gil
-
-</div>
-
-</div>
-
-::right::
-
-<div class="pl-4 mt-11">
-
-### 人不可替代的
-
-<v-clicks>
-
-- 持续学习 + 长期记忆 + 活在现实世界
-- **多样性** —— 对齐是"熵减"，模型趋同；人没有单一损失函数
-- **想象力** —— 用古希腊语料训练的 AI 会说"月亮是个女神"
-
-</v-clicks>
-
-<div v-click class="mt-3 p-3 bg-teal-50 rounded-lg border border-teal-200 text-xs">
-
-**The true value is in doing what nobody did before.** Imagination right now is your most important attribute.
-
-</div>
-
-</div>
-
-<SlideRefs :refs="[
-  { label: 'Random thoughts while gazing at the AI Frontier — Elad Gil', url: 'https://blog.eladgil.com/p/random-thoughts-while-gazing-at-the' },
-  { label: 'Private Data / Compliance / Embedding — nicbstme', url: 'https://x.com/nicbstme/status/2023501562480644501' }
+  { label: 'Peaky capabilities — Karpathy', url: 'https://x.com/karpathy/status/2042334451611693415' },
+  { label: 'The future of everything is lies — aphyr', url: 'https://aphyr.com/posts/411-the-future-of-everything-is-lies-i-guess' }
 ]" />
 
 ---
 
----
-layout: center
-clicks: 3
----
+# LLM 与 人
 
-<AgentSplitView :step="$clicks" />
+各自的优势 —— 协作的前提是知道对方擅长什么
 
----
+<div class="grid grid-cols-2 gap-4 mt-4 text-sm">
 
-# 明确的趋势
-
-<div class="grid grid-cols-2 gap-4 mt-6">
 <div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200">
-
-### 工具的民主化
-
-写个前端页面、做个可视化、各种小工具 —— 门槛极低
-
-SaaS 股价暴跌的原因之一
-
+<div class="font-bold text-teal-700 mb-2">LLM</div>
+<ul class="space-y-1 text-xs leading-relaxed list-disc list-inside">
+  <li>广博的世界知识（互联网知识）</li>
+  <li>短期记忆（Context）</li>
+  <li>活在数字世界 —— 带宽大，刷一下看几十个文件、疯狂爬网页</li>
+  <li>擅长 <strong>语料多 / 易验证</strong> 的任务</li>
+</ul>
 </div>
+
 <div v-click class="p-4 bg-amber-50 rounded-lg border border-amber-200">
-
-### 品味 > 编码
-
-大家都能写代码了 → **Taste**、想象力、挖掘需求的能力才是稀缺的
-
-</div>
-<div v-click class="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-
-### Token 经济
-
-给 Agent 的工具会越来越多，Context 是稀缺资源
-
-</div>
-<div v-click class="p-4 bg-gray-50 rounded-lg border border-gray-200">
-
-### 数字 vs. 现实
-
-数字世界变化飞快，但真实世界的变化有很多阻力
-
-</div>
+<div class="font-bold text-amber-700 mb-2">人</div>
+<ul class="space-y-1 text-xs leading-relaxed list-disc list-inside">
+  <li>持续学习 + 领域知识</li>
+  <li>自带可内化的 <strong>长期记忆</strong></li>
+  <li>现实世界的具身体验</li>
+  <li><strong>多样性</strong> —— 每个人都不一样</li>
+</ul>
 </div>
 
+</div>
+
+<div v-click class="mt-4 p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-400 text-sm leading-relaxed">
+如果只用古希腊语料训练的 AI，问它能不能登月 —— 它只会说月亮是个女神，它无法理解登月这个概念。<br/>
+真正的价值也许不在于用 AI 加速做那些已经做过的事，而在于 <strong>做没人做过的事</strong>。
+</div>
+<SlideRefs :refs="[
+  { label: 'Why aren\'t smart people happier', url: 'https://www.experimental-history.com/p/why-arent-smart-people-happier' }
+]" />
 ---
 
 # 个人建议
 
-<div class="mt-4">
+<div class="mt-6 space-y-4">
 
-<v-clicks>
-
-<div class="p-4 mb-4 bg-teal-50 rounded-lg border border-teal-200">
-
-**1. 不 FOMO，自己体验**
-
-每个月看下最强的模型什么样就行了。少看机器之心、量子位、新智元的标题党，多上手试。
-
+<div v-click class="p-4 bg-teal-50 rounded-lg border-l-4 border-teal-400">
+<div class="font-bold text-base mb-1">1. 不 FOMO，自己体验</div>
+<div class="text-sm">以月为单位看下最强模型的能力及其 harness 进展，少看 <span class="font-mono text-xs bg-white/70 px-1 rounded">机器之心 / 量子位 / 新智元</span> 的标题党，多上手试。</div>
 </div>
 
-<div class="p-4 mb-4 bg-amber-50 rounded-lg border border-amber-200">
-
-**2. Build for Agent，建立直觉**
-
-一切可让 Agent 自己快速验证的问题，终将被 AI 解决。发现痛点 → 判断是否适合 AI → 适合，我们来自动化。
-
+<div v-click class="p-4 bg-amber-50 rounded-lg border-l-4 border-amber-400">
+<div class="font-bold text-base mb-1">2. Build for Agent</div>
+<div class="text-sm">让基础设施变得 <strong>agent friendly</strong> —— 文档化、CLI 化、显性化。</div>
+<div class="text-sm mt-1">建立"这个问题是否适合 AI 解决"的直觉 —— 可让 Agent 自己快速验证的任务，最终都会被 AI 解决。</div>
 </div>
 
-<div class="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-
-**3. 对产品负责的还是我们自己**
-
-AI 是工具，不是决策者。最终的产品质量、用户体验，责任在我们。
-
+<div v-click class="p-4 bg-violet-50 rounded-lg border-l-4 border-violet-400">
+<div class="font-bold text-base mb-1">3. <em>Attention is all <u>we</u> have</em> —— 人永远是瓶颈</div>
+<div class="text-sm">Token 是代币，AI 是老虎机 —— 跟打游戏一样上瘾。</div>
+<div class="text-sm mt-1">你在和一个 <strong>概率系统</strong> 协作，但你的大脑习惯 <strong>确定性系统</strong> —— 这种错配是持续的低级压力源。</div>
 </div>
-
-</v-clicks>
-
-</div>
-
----
-
-# 保护自己的注意力
-
-Attention is all **we** have
-
-<div v-click class="mt-6 flex items-center justify-center gap-4">
-  <div class="px-6 py-4 bg-gradient-to-t from-amber-200 to-amber-50 rounded-lg border border-amber-300 text-center">
-    <div class="text-2xl font-mono font-bold text-amber-600">?</div>
-    <div class="text-xs mt-1 font-medium opacity-70">Token</div>
-  </div>
-  <div class="px-6 py-4 bg-gradient-to-t from-amber-200 to-amber-50 rounded-lg border border-amber-300 text-center">
-    <div class="text-2xl font-mono font-bold text-amber-600">?</div>
-    <div class="text-xs mt-1 font-medium opacity-70">老虎机</div>
-  </div>
-  <div class="px-6 py-4 bg-gradient-to-t from-amber-200 to-amber-50 rounded-lg border border-amber-300 text-center">
-    <div class="text-2xl font-mono font-bold text-amber-600">?</div>
-    <div class="text-xs mt-1 font-medium opacity-70">上瘾</div>
-  </div>
-</div>
-
-<div v-click class="mt-4 text-center text-sm">
-
-你在和一个 **概率系统** 协作，但你的大脑习惯 **确定性系统** —— 这种错配是持续的低级压力源
-
-</div>
-
-<div v-click class="mt-4 p-4 bg-amber-50 rounded-lg border border-amber-200">
-
-### "Just one more prompt" 陷阱
-
-<span v-mark="{ at: 4, type: 'highlight', color: '#f59e0b' }">三次法则</span>：如果三次 prompt 没有让 AI 做到 70% 可用，就自己写。没有例外。
-
 </div>
 
 <SlideRefs :refs="[
-  { label: 'AI fatigue is real and nobody talks about it — Siddhant Khare', url: 'https://siddhantkhare.com/writing/ai-fatigue-is-real' }
+  { label: 'AI fatigue is real — Siddhant Khare', url: 'https://siddhantkhare.com/writing/ai-fatigue-is-real' }
 ]" />
-
----
-
-# 建立"这个问题是否适合 AI"的直觉
-
-<v-clicks>
-
-- AI 不是万能锤子，不要看什么都像钉子
-- 当自动化带上了一定的智力，关键是判断 **何时需要这份智力**
-
-</v-clicks>
-
-<div v-click class="mt-6">
-
-```mermaid {scale: 0.85}
-graph LR
-    A["发现痛点"] --> B{"适合 AI 吗？"}
-    B -->|"是"| C["用 AI 自动化"]
-    B -->|"脚本就够了"| D["写个脚本"]
-    B -->|"需要人判断"| E["人来做"]
-    style A fill:#e0f2fe,stroke:#14b8a6
-    style B fill:#fef3c7,stroke:#f59e0b
-    style C fill:#dcfce7,stroke:#22c55e
-    style D fill:#dcfce7,stroke:#22c55e
-    style E fill:#dcfce7,stroke:#22c55e
-```
-
-</div>
-
-<div v-click class="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200 text-sm text-center italic">
-
-"If a task is solvable and it's easy to verify, then it's going to get solved by AI." — Verifier's Law
-
-</div>
 
 ---
 
@@ -1758,6 +1609,6 @@ graph LR
 2. 对比 slides 最终内容与发展过程，slides 内容是如何发展的，谢天为啥要做这样的取舍？
 3. repo 中有些什么 skill，它们是做什么的？能使用在我自己的项目或者智能体中么？
 4. 整理谢天这份 slides 里所有的 ref，适合我阅读吗？给出一份"观众扩展阅读路径"（按 30 分钟 / 2 小时 / 半天三个时间预算）。
-5. 谢天怎么变得这么强的，能从他的博客中 [https://jsjtxietian.space/](https://jsjtxietian.space/) 看出来吗？学到了知识是不是要给他打点钱啥的？
+5. 谢天怎么变得这么强的，能从他的博客中 [https://jsjtxietian.space/](https://jsjtxietian.space/) 看出来吗？学到了知识是不是要请他喝个奶茶啥的？
 
 </div>
