@@ -44,36 +44,27 @@ layout: new-section
 
 # 模型能力在飞速进化
 
-AI 能独立完成的任务时长 —— **Log 坐标**下是一条直线
+AI 能干的活儿越来越多
 
 <div class="mt-2 grid grid-cols-5 gap-4 items-start">
 
 <div class="col-span-3">
   <img src="/images/show.png" class="rounded border border-gray-200 shadow-sm w-full" />
   <div class="text-xs opacity-50 mt-1 text-center">
-    横轴：模型发布时间 · 纵轴：任务时长（<strong>对数刻度</strong>）
+    AI 能以 50% 成功率完成的软件任务时长 · 纵轴：对数刻度
   </div>
 </div>
 
 <div class="col-span-2 space-y-2 text-xs">
 
 <div v-click class="p-2 bg-teal-50 rounded-lg border border-teal-200">
-<strong>图表直译</strong><br/>
-"不同 LLM 能以 <strong>50% 成功率</strong> 完成的软件任务时长"
+<strong>怎么读这张图</strong><br/>
+纵轴是 <strong>50% Time Horizon</strong>：AI Agent 能以 50% 成功率完成的任务难度上限 —— 用人类专家完成该任务所需时长来衡量。是任务<u>难度</u>的标尺，不是 AI 的用时
 </div>
 
 <div v-click class="p-2 bg-amber-50 rounded-lg border border-amber-200">
-<strong>Log 轴上的直线 = 指数增长</strong><br/>
-每格是前一格的 <strong>10 倍</strong>，数据点大致落在一条直线上
-</div>
-
-<div v-click class="p-2 bg-emerald-50 rounded-lg border border-emerald-200">
-<strong>METR 的发现</strong><br/>
-Task Horizon 大约每 <strong>~7 个月翻一倍</strong> —— 持续了多年的稳定节奏
-</div>
-
-<div class="opacity-50 mt-1">
-Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
+<strong>这是 Log 尺度，不是线性</strong><br/>
+每格是前一格的 <strong>10 倍</strong> —— 数据点近似落在一条直线上，说明模型能力一直在持续翻倍
 </div>
 
 </div>
@@ -82,81 +73,6 @@ Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
 <SlideRefs :refs="[
   { label: 'Task-Completion Time Horizons of Frontier AI Models — METR', url: 'https://metr.org/time-horizons/' }
 ]" />
-
----
-
-# 换成 Linear 坐标看看
-
-同样的数据 —— 早期任务被压得几乎看不见，近两年是 **Hockey-Stick**
-
-<div class="mt-2 grid grid-cols-5 gap-4 items-start">
-
-<div class="col-span-3">
-  <img src="/images/show1.png" class="rounded border border-gray-200 shadow-sm w-full" />
-  <div class="text-xs opacity-50 mt-1 text-center">
-    横轴：模型发布时间 · 纵轴：任务时长（线性）
-  </div>
-</div>
-
-<div class="col-span-2 space-y-2 text-xs">
-
-<div v-click class="p-2 bg-teal-50 rounded-lg border border-teal-200">
-<strong>早期几乎贴地</strong><br/>
-GPT-2/3 那些"几秒级"任务，在线性尺度下与 0 几乎无区别
-</div>
-
-<div v-click class="p-2 bg-amber-50 rounded-lg border border-amber-200">
-<strong>近两年突然起飞</strong><br/>
-前沿模型已经能独立跑 <strong>数小时</strong> 的复杂工程任务
-</div>
-
-<div v-click class="p-2 bg-emerald-50 rounded-lg border border-emerald-200">
-<strong>外推的含义</strong><br/>
-如果指数趋势继续，几年后模型将能独立完成 <strong>数天</strong> 量级的任务
-</div>
-
-<div class="opacity-50 mt-1">
-Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
-</div>
-
-</div>
-</div>
-
----
-
-# 希望大家理解
-
-<div class="mt-8">
-
-<v-clicks>
-
-<div class="p-4 mb-4 bg-teal-50 rounded-lg border-l-4 border-teal-400 text-lg">
-
-**1.** Token 到底是什么？
-
-</div>
-
-<div class="p-4 mb-4 bg-teal-50 rounded-lg border-l-4 border-teal-400 text-lg">
-
-**2.** Transformer 的基本结构和原理是什么？
-
-</div>
-
-<div class="p-4 mb-4 bg-teal-50 rounded-lg border-l-4 border-teal-400 text-lg">
-
-**3.** 为什么大模型本质上是基于统计学的，而且总是带有随机性？
-
-</div>
-
-<div class="p-4 bg-teal-50 rounded-lg border-l-4 border-teal-400 text-lg">
-
-**4.** 为什么大模型会有 Context（上下文）的长度限制？
-
-</div>
-
-</v-clicks>
-
-</div>
 
 ---
 
@@ -202,12 +118,6 @@ Source: <a href="https://metr.org/time-horizons/" class="underline">METR</a>
 
 <div class="mt-8">
   <InferencePipeline />
-</div>
-
-<div v-click class="mt-6 text-center">
-  <div class="inline-block px-4 py-2 bg-gray-100 rounded-lg border border-gray-300 text-sm">
-    <carbon-return class="inline text-gray-500" /> 新 Token 加入输入序列，回到开头继续生成 —— <span v-mark="{ at: 8, type: 'highlight', color: '#14b8a6' }">自回归（Autoregressive）</span>
-  </div>
 </div>
 
 ---
@@ -298,6 +208,54 @@ LLM 不是按字符处理文本 —— 字符级计数不是它的强项
 </div>
 
 </div>
+
+---
+
+# 多模态
+
+图像、音频也可以是 Token —— **能变成 Token 的，都能用 Transformer 处理**
+
+<div v-click class="mt-4 flex items-center justify-center gap-2 text-sm">
+  <div class="px-3 py-2 bg-teal-100 rounded border border-teal-300 text-center">文本 Token<br/><span class="text-xs opacity-70">"你好"</span></div>
+  <div class="opacity-30">+</div>
+  <div class="px-3 py-2 bg-amber-100 rounded border border-amber-300 text-center">图像 Token<br/><span class="text-xs opacity-70">Patch 切块</span></div>
+  <div class="opacity-30">+</div>
+  <div class="px-3 py-2 bg-violet-100 rounded border border-violet-300 text-center">音频 Token<br/><span class="text-xs opacity-70">频谱片段</span></div>
+  <div class="opacity-30">→</div>
+  <div class="px-3 py-2 bg-emerald-100 rounded border border-emerald-300 text-center font-medium">Transformer<br/><span class="text-xs opacity-70">统一处理</span></div>
+</div>
+
+<div class="grid grid-cols-2 gap-5 mt-4 items-start">
+
+<div class="text-sm">
+
+<v-clicks>
+
+- 图像被切成小块（Patch），每个 Patch 编码为一个 Token —— 这就是 **Vision Transformer**
+- Transformer 是 **通用的序列建模架构**，不在乎输入是文字、像素还是音符
+
+</v-clicks>
+
+<div v-click class="mt-3 p-3 bg-teal-50 rounded-lg border border-teal-200">
+
+### 原生多模态
+
+训练时就混合了多种模态的数据（文本 + 图像 + 音频），而不是后期拼接。如 Google 的 Gemma 4 —— 从一开始就"看得见也听得到"，并且开源。
+
+</div>
+
+</div>
+
+<div v-click>
+  <img src="/images/vision.jpg" class="rounded border border-gray-200 shadow-sm w-full" />
+  <div class="text-[11px] opacity-60 mt-2 text-center">Vision Transformer：图像 → Patch → Token → 与文本同架构处理</div>
+</div>
+
+</div>
+
+<SlideRefs :refs="[
+  { label: 'A Visual Guide to Gemma 4 — Maarten Grootendorst', url: 'https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4' }
+]" />
 
 ---
 
@@ -566,8 +524,6 @@ $(a+b)+c \neq a+(b+c)$
 
 <div class="mt-4">
 
-### 三个根源
-
 <div class="grid grid-cols-3 gap-3 mt-2 text-sm">
 
 <div v-click class="p-3 bg-gray-50 rounded-lg border border-gray-200">
@@ -603,47 +559,6 @@ $(a+b)+c \neq a+(b+c)$
 **怎么缓解？** 给它提供 **Context**（让它去看网页、查文档）—— 这就是 RAG 的核心思想。冷门 API（如 UE 某个模块）尤其要小心。
 
 </div>
-
----
-
-# Context Window
-
-<div class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200">
-
-"今天天气很好，我准备出 ___"
-
-下一个词大概率是 **"门"** —— 前面这句话，就是它的 **Context**
-
-</div>
-
-<v-clicks>
-
-- **Context** = 大模型一次性能看到的所有 Token
-- 包括系统提示、历史消息、你的问题 —— 全部拼在一起送进去
-- 有长度上限（128K、200K Token 等），超出就被截断
-- **不是"记忆"**：每次请求都从零开始
-
-</v-clicks>
-
-<div v-click class="mt-4">
-  <div class="text-xs mb-1 opacity-60">一次对话中 Context 的组成</div>
-  <div class="w-full h-8 rounded-lg flex overflow-hidden text-xs text-white font-medium">
-    <div class="bg-purple-500 flex items-center justify-center" style="width: 15%">系统提示</div>
-    <div class="bg-teal-500 flex items-center justify-center" style="width: 30%">历史对话</div>
-    <div class="bg-amber-500 flex items-center justify-center" style="width: 15%">你的问题</div>
-    <div class="bg-gray-300 flex items-center justify-center text-gray-600" style="width: 40%">剩余可用空间</div>
-  </div>
-</div>
-
-<div v-click class="mt-3 p-3 bg-amber-50 rounded-lg border border-amber-200 text-sm">
-
-**Context Rot**：输入 Token 越多，模型表现反而可能下降 —— 注意力会被废话稀释。所以 <span v-mark="{ at: 6, type: 'underline', color: '#f59e0b' }">精简指令、清晰分隔</span> 是在手动引导模型的注意力资源。
-
-</div>
-
-<SlideRefs :refs="[
-  { label: 'Context Rot: How Increasing Input Tokens Impacts LLM Performance — Chroma', url: 'https://www.trychroma.com/research/context-rot' }
-]" />
 
 ---
 
@@ -693,50 +608,59 @@ $(a+b)+c \neq a+(b+c)$
 
 ---
 
-# 多模态
+# 训练的痕迹
 
-图像、音频也可以是 Token —— **能变成 Token 的，都能用 Transformer 处理**
+无法停止的文字接龙本能 + 后训练阶段的肌肉记忆
 
-<div v-click class="mt-4 flex items-center justify-center gap-2 text-sm">
-  <div class="px-3 py-2 bg-teal-100 rounded border border-teal-300 text-center">文本 Token<br/><span class="text-xs opacity-70">"你好"</span></div>
-  <div class="opacity-30">+</div>
-  <div class="px-3 py-2 bg-amber-100 rounded border border-amber-300 text-center">图像 Token<br/><span class="text-xs opacity-70">Patch 切块</span></div>
-  <div class="opacity-30">+</div>
-  <div class="px-3 py-2 bg-violet-100 rounded border border-violet-300 text-center">音频 Token<br/><span class="text-xs opacity-70">频谱片段</span></div>
-  <div class="opacity-30">→</div>
-  <div class="px-3 py-2 bg-emerald-100 rounded border border-emerald-300 text-center font-medium">Transformer<br/><span class="text-xs opacity-70">统一处理</span></div>
-</div>
+<div class="grid grid-cols-2 gap-5 mt-4">
 
-<div class="grid grid-cols-2 gap-5 mt-4 items-start">
-
-<div class="text-sm">
-
-<v-clicks>
-
-- 图像被切成小块（Patch），每个 Patch 编码为一个 Token —— 这就是 **Vision Transformer**
-- Transformer 是 **通用的序列建模架构**，不在乎输入是文字、像素还是音符
-
-</v-clicks>
-
-<div v-click class="mt-3 p-3 bg-teal-50 rounded-lg border border-teal-200">
-
-### 原生多模态
-
-训练时就混合了多种模态的数据（文本 + 图像 + 音频），而不是后期拼接。如 Google 的 Gemma 4 —— 从一开始就"看得见也听得到"，并且开源。
-
-</div>
-
+<div v-click>
+  <img src="/images/deepseek_think.png" class="rounded border border-gray-200 shadow-sm w-full" />
+  <div class="text-xs opacity-60 mt-2 text-center">DeepSeek</div>
 </div>
 
 <div v-click>
-  <img src="/images/vision.jpg" class="rounded border border-gray-200 shadow-sm w-full" />
-  <div class="text-[11px] opacity-60 mt-2 text-center">Vision Transformer：图像 → Patch → Token → 与文本同架构处理</div>
+  <img src="/images/gemini_think.png" class="rounded border border-gray-200 shadow-sm w-full" />
+  <div class="text-xs opacity-60 mt-2 text-center">Gemini</div>
 </div>
 
+</div>
+
+---
+
+# Context Window
+
+<div class="mt-4 p-2 bg-teal-50 rounded-lg border border-teal-200 text-sm">
+"今天天气很好，我准备出 ___" —— 下一个词大概率是 <strong>"门"</strong>，前面这句话就是它的 <strong>Context</strong>
+</div>
+
+<div class="mt-7">
+<v-clicks>
+
+- **Context** = 大模型一次性能看到的所有 Token
+- 包括系统提示、历史消息、你的问题 —— 全部拼在一起送进去
+- 有长度上限（128K、200K Token 等），超出就被截断
+- **不是"记忆"**：每次请求都从零开始
+
+</v-clicks>
+</div>
+
+<div v-click class="mt-7">
+  <div class="text-xs mb-1 opacity-60">一次对话中 Context 的组成</div>
+  <div class="w-full h-8 rounded-lg flex overflow-hidden text-xs text-white font-medium">
+    <div class="bg-purple-500 flex items-center justify-center" style="width: 15%">系统提示</div>
+    <div class="bg-teal-500 flex items-center justify-center" style="width: 30%">历史对话</div>
+    <div class="bg-amber-500 flex items-center justify-center" style="width: 15%">你的问题</div>
+    <div class="bg-gray-300 flex items-center justify-center text-gray-600" style="width: 40%">剩余可用空间</div>
+  </div>
+</div>
+
+<div v-click class="mt-5 p-2 bg-amber-50 rounded-lg border border-amber-200 text-sm">
+<strong>Context Rot</strong>：输入 Token 越多，模型表现反而可能下降 —— 注意力会被废话稀释。<br/>所以 <span v-mark="{ at: 6, type: 'underline', color: '#f59e0b' }">精简指令、清晰分隔</span> 是在手动引导模型的注意力资源。
 </div>
 
 <SlideRefs :refs="[
-  { label: 'A Visual Guide to Gemma 4 — Maarten Grootendorst', url: 'https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-gemma-4' }
+  { label: 'Context Rot: How Increasing Input Tokens Impacts LLM Performance — Chroma', url: 'https://www.trychroma.com/research/context-rot' }
 ]" />
 
 ---
