@@ -31,6 +31,47 @@
 <div v-click class="p-2 bg-gray-50 rounded border"><strong>Title</strong> — 内容</div>
 ```
 
+### 左右双栏布局
+
+有图或左右对称内容时，优先用双栏。图片大小通过 column ratio 控制，不改 `img` 的 class：
+
+```html
+<div class="grid gap-6 mt-4 items-start" style="grid-template-columns: 1fr 1.25fr">
+  <div class="space-y-2 text-sm"> <!-- 文字栏 --> </div>
+  <div> <img src="..." class="rounded border border-gray-200 shadow-sm w-full" /> </div>
+</div>
+```
+
+- 右栏比左栏宽 25%：`1fr 1.25fr`；再大 25%：`1fr 1.5625fr`；缩小按比例算
+- 调图片大小只改右栏 fr 值，不加 `max-w-*` 或 `w-*`
+
+### 卡片写法约定
+
+- 卡片内换行用 `<br/>`，**不要用 `</br>`**（是错误写法，会报 Invalid end tag）
+- 卡片内次级说明文字用 `<span class="text-xs opacity-70">...</span>`，不另起 `<div>`
+- 卡片内列举多点时，用 `·` 作 bullet（`· 精简注入<br/>· 控制边界`）
+- 卡片高度：`p-2` 矮、`p-3` 标准、`p-4` 高；需要矮卡时用 `p-2 text-xs`
+
+### 语言约定
+
+- 主体文案用中文；英文只用于专有名词（MCP、Skill、Transformer 等）和原文引用
+- 引用英文原文时用 `<em>italic</em>` 或 `text-xs italic` 的灰色小卡，不要大号展示
+
+### v-clicks 只能包 markdown list，不能包 div
+
+`<v-clicks>` 内只放 `- item` 形式的 markdown list。如果要逐步显示多个 `<div>` 卡片，每张卡片单独加 `v-click`：
+
+```html
+<!-- 错误：v-clicks 包 div 会解析出错 -->
+<v-clicks>
+  <div class="p-3">...</div>
+</v-clicks>
+
+<!-- 正确：每个 div 单独 v-click -->
+<div v-click class="p-3">...</div>
+<div v-click class="p-3">...</div>
+```
+
 ## Ref 规则
 
 pre.md 里标了 `ref: https://...` 的地方，slides.md 对应页要挂 `<SlideRefs />` 组件（`components/SlideRefs.vue`）。

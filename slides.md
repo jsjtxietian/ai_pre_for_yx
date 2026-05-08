@@ -228,11 +228,10 @@ LLM 不是按字符处理文本 —— 字符级计数不是它的强项
 <div class="grid grid-cols-2 gap-5 mt-4 items-start">
 
 <div class="text-sm">
-
 <v-clicks>
 
 - 图像被切成小块（Patch），每个 Patch 编码为一个 Token —— 这就是 **Vision Transformer**
-- Transformer 是 **通用的序列建模架构**，不在乎输入是文字、像素还是音符
+- Transformer 是 **通用的序列建模架构**，不在乎输入是文本 Token、图像 Patch 还是音频频谱
 
 </v-clicks>
 
@@ -567,7 +566,7 @@ layout: new-section
 
 # Part 2: Agent 时代
 
-交互模式的进化（在模型能力的基础上）
+模型能力的进化带来交互模式的进化
 
 ---
 
@@ -814,16 +813,16 @@ MCP 给 Agent 接外部工具；Skill 教 Agent 怎么做具体任务
 <strong>沉淀组织知识</strong><br/>
 <span class="text-xs">把公司的工作流、最佳实践和隐性知识打包给 Agent，团队统一使用</span>
 </div>
-
 <div v-click class="p-3 bg-amber-50 rounded-lg border border-amber-200">
 <strong>用 Markdown 就能写</strong><br/>
-<span class="text-xs">普通人写 Markdown 指令即可创建 Skill；进阶时可附加可执行脚本</span>
+<span class="text-xs">写 Markdown 指令即可创建 Skill；进阶时可附加可执行脚本</span>
 </div>
 
 <div v-click class="p-3 bg-amber-50 rounded-lg border border-amber-200">
 <strong>组织级统一分发</strong><br/>
-<span class="text-xs">Team / Enterprise 管理员可全组织下发 Skill，无需成员各自配置</span>
+<span class="text-xs">可在组织/团队全局部署 Skill，无需成员逐一配置。</span>
 </div>
+
 
 </div>
 
@@ -851,22 +850,20 @@ MCP 给 Agent 接外部工具；Skill 教 Agent 怎么做具体任务
 
 # 龙虾：一个完整的 Agent 系统
 
-OpenClaw — 构建生产级 Agent 需要的核心组件
+OpenClaw — 从 Code Agent 到 个人 AI 助手
 
 <div class="grid grid-cols-2 gap-x-8 gap-y-3 mt-4 text-sm">
   <div v-click class="p-2 bg-gray-50 rounded border border-gray-200"><strong>Persistent Sessions</strong> — 持久化会话</div>
   <div v-click class="p-2 bg-gray-50 rounded border border-gray-200"><strong>SOUL.md</strong> — 赋予 Agent 人格</div>
-  <div v-click class="p-2 bg-gray-50 rounded border border-gray-200"><strong>Adding Tools</strong> — 扩展工具集</div>
-  <div v-click class="p-2 bg-gray-50 rounded border border-gray-200"><strong>Permission Controls</strong> — 权限管控</div>
-  <div v-click class="p-2 bg-teal-50 rounded border border-teal-200"><strong>The Gateway</strong> — 网关路由</div>
+  <div v-click class="p-2 bg-gray-50 rounded border border-gray-200"><strong>Adding Tools</strong> — 给 Agent 工具来干活儿</div>
+  <div v-click class="p-2 bg-gray-50 rounded border border-gray-200"><strong>Permission Controls</strong> — 权限管控防止 Agent 乱搞</div>
   <div v-click class="p-2 bg-teal-50 rounded border border-teal-200">
-    <strong>Context Compaction</strong> — 上下文压缩
-    <div class="text-xs opacity-70 mt-1">塞得越多，每条信息被正确利用的概率越低 —— 本质是提高信噪比</div>
+    <strong>Context Compaction</strong> — 对话会越来越大，需要上下文压缩
   </div>
   <div v-click class="p-2 bg-teal-50 rounded border border-teal-200"><strong>Long-Term Memory</strong> — 长期记忆</div>
-  <div v-click class="p-2 bg-teal-50 rounded border border-teal-200"><strong>Command Queue</strong> — 命令队列</div>
-  <div v-click class="p-2 bg-emerald-50 rounded border border-emerald-200"><strong>Cron Jobs (Heartbeats)</strong> — 定时任务</div>
+  <div v-click class="p-2 bg-emerald-50 rounded border border-emerald-200"><strong>Heartbeats</strong> — 定时任务，不然 Agent 只在你问它的时候有反应</div>
   <div v-click class="p-2 bg-emerald-50 rounded border border-emerald-200"><strong>Multi-Agent</strong> — 多 Agent 协作</div>
+  <div v-click class="p-2 bg-emerald-50 rounded border border-emerald-200">以及其他...</div>
 </div>
 
 <SlideRefs :refs="[
@@ -1012,12 +1009,12 @@ AI 喜欢文档 —— 读得比人快<br/>
 什么样的任务适合交给 Agent？
 
 <div class="mt-4 grid grid-cols-3 gap-4">
-<div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200 text-center">
-  <carbon-renew class="text-3xl text-teal-600 mb-2 mx-auto" />
+<div v-click class="p-4 bg-emerald-50 rounded-lg border border-emerald-200 text-center">
+  <carbon-crop class="text-3xl text-emerald-600 mb-2 mx-auto" />
 
-**Feedback Loop**
+**Scoped**
 
-让 Agent 能验证自己的输出：跑测试、看编译报错、检查截图
+输入有明确的边界：精准的上下文，避免让 Agent 在整个工程里迷路
 
 </div>
 <div v-click class="p-4 bg-amber-50 rounded-lg border border-amber-200 text-center">
@@ -1025,23 +1022,22 @@ AI 喜欢文档 —— 读得比人快<br/>
 
 **Sandbox**
 
-安全的试错环境：它可以放心尝试，不怕搞坏生产环境
+执行有安全的环境：它可以放心尝试，不怕搞坏生产环境
 
 </div>
-<div v-click class="p-4 bg-emerald-50 rounded-lg border border-emerald-200 text-center">
-  <carbon-checkmark-outline class="text-3xl text-emerald-600 mb-2 mx-auto" />
 
-**易于 Verify**
+<div v-click class="p-4 bg-teal-50 rounded-lg border border-teal-200 text-center">
+  <carbon-renew class="text-3xl text-teal-600 mb-2 mx-auto" />
 
-清晰的 diff、可复现的步骤、自动化检查
+**Feedback Loop**
+
+能验证自己的输出：自动跑测试、检查截图等
 
 </div>
 </div>
 
-<div v-click class="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200 text-sm italic">
-
-**The Building Block Economy**: AI is okay at building from scratch, but it is *really good* at gluing together high-quality, well-documented, and proven components.
-
+<div v-click class="mt-4 p-2 bg-gray-50 rounded-lg border border-gray-200 text-xs italic">
+<strong>The Building Block Economy</strong>: AI is okay at building from scratch, but it is <em>really good</em> at gluing together high-quality, well-documented, and proven components.
 </div>
 
 <div v-click class="mt-2 text-center text-sm">
@@ -1166,11 +1162,11 @@ UE 是给 <strong>人</strong> 用的 —— AI 时代需要给 <strong>Agent</s
     <span class="text-xs text-red-600 flex-shrink-0">视觉模型来不及</span>
   </div>
 </div>
-
 <div v-click class="mt-3 p-3 bg-gray-50 rounded-lg border-l-4 border-gray-400 text-xs leading-relaxed">
-即使有带视觉、带推理的模型（Claude 的 computer use 之类），<strong>纯视觉链路有 latency</strong>，QTE 来不及 —— 不代表不能解决，但纯 AI 难做到。<br/>
+即使有带视觉、带推理的模型（Claude 的 computer use 之类），首先，纯视觉链路有 <strong>latency</strong>，QTE 来不及；其次，AI 很难仅通过屏幕像素稳定且高效地逆向推导出引擎内部的准确状态。不代表不能解决这些问题，但纯 AI 难做到。<br/><br/>
 一个玩法尚且如此，更别提加上美术、关卡设计、数值。
 </div>
+
 
 <div v-click class="mt-4 p-3 bg-teal-50 rounded-lg border border-teal-200 text-sm text-center max-w-lg mx-auto">
 游戏是给 <strong>人</strong> 设计的，不是给 AI 设计的
@@ -1231,8 +1227,9 @@ UE 是给 <strong>人</strong> 用的 —— AI 时代需要给 <strong>Agent</s
 </div>
 
 <div v-click class="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200 text-center text-lg">
-AI 放大的是你已有的基建质量 —— <span v-mark="{ at: 4, type: 'underline', color: '#10b981' }">基建越Agent友好，杠杆越大</span>
+引擎基建需要向向 AI 时代靠拢。AI 放大的是你已有的基建质量 —— <span v-mark="{ at: 4, type: 'underline', color: '#10b981' }">基建越Agent友好，杠杆越大</span>
 </div>
+
 
 <SlideRefs :refs="[
   { label: '沉淀团队资产 — AI Agent 的道与术 / 21', url: 'https://let-s-vision-2026.onev.cat/21?clicks=4' }
