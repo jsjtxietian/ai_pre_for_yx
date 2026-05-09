@@ -800,49 +800,41 @@ Model Context Protocol — 让 AI 调用外部工具的标准协议
 
 MCP 给 Agent 接外部工具；Skill 教 Agent 怎么做具体任务
 
-<div class="grid grid-cols-2 gap-5 mt-4 text-sm">
+<div class="grid gap-5 mt-4 text-sm" style="grid-template-columns: 1fr 1.25fr">
 
 <div class="space-y-2">
 
 <div v-click class="p-3 bg-teal-50 rounded-lg border border-teal-200">
 <strong>提升专项任务表现</strong><br/>
-<span class="text-xs">为文档撰写、数据分析、特定领域工作提供专项能力，补充模型的通用知识</span>
+<span class="text-xs">为特定领域工作提供专项能力，补充模型的通用知识</span>
 </div>
 
 <div v-click class="p-3 bg-teal-50 rounded-lg border border-teal-200">
 <strong>沉淀组织知识</strong><br/>
-<span class="text-xs">把公司的工作流、最佳实践和隐性知识打包给 Agent，团队统一使用</span>
+<span class="text-xs">把公司的工作流、最佳实践和隐性知识打包给 Agent，统一使用</span>
 </div>
-<div v-click class="p-3 bg-amber-50 rounded-lg border border-amber-200">
+
+<div v-click class="p-3 bg-teal-50 rounded-lg border border-teal-200">
 <strong>用 Markdown 就能写</strong><br/>
 <span class="text-xs">写 Markdown 指令即可创建 Skill；进阶时可附加可执行脚本</span>
 </div>
 
 <div v-click class="p-3 bg-amber-50 rounded-lg border border-amber-200">
-<strong>组织级统一分发</strong><br/>
-<span class="text-xs">可在组织/团队全局部署 Skill，无需成员逐一配置。</span>
-</div>
-
-
-</div>
-
-<div v-click class="space-y-3">
-
-<div class="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
 <strong>渐进式加载</strong><br/>
-<span class="text-xs">Skill 通过渐进式披露工作 —— Claude 判断哪些 Skill 与当前任务相关，只加载需要的部分，避免撑爆 Context Window。收到任务后，Claude 扫描可用的 Skill 列表，加载相关的 Skill，再按其指令执行</span>
+<span class="text-xs">AI 自行判断哪些 Skill 与当前任务相关，只加载需要的部分，避免撑爆 Context Window —— 按需取用，不一次性全塞进去。</span>
 </div>
 
-<div class="text-xs opacity-60 leading-relaxed px-1">
-按需取用，不一次性全塞进去 —— MCP 给 Agent 接入工具，Skill 教 Agent 如何用好这些工具，两者可以配合使用
 </div>
 
+<div v-click>
+  <img src="/images/skill.png" class="rounded border border-gray-200 shadow-sm w-full" />
 </div>
 
 </div>
 
 <SlideRefs :refs="[
-  { label: 'What are Skills — Claude Support', url: 'https://support.claude.com/en/articles/12512176-what-are-skills' }
+  { label: 'What are Skills — Claude Support', url: 'https://support.claude.com/en/articles/12512176-what-are-skills' },
+  { label: 'Skills Marketplace', url: 'https://skillsmp.com/' }
 ]" />
 
 
